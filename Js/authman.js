@@ -36,7 +36,7 @@ function authuser() {
     var db = localStorage.getItem('ulearnDatabase');
     if (!db) {
         //if no database
-        alert('No user account database located in your browser file system. Please create a user account to proceed');
+        alert('No user account database located in your browser file system. Please check the name entered to make sure it ends with the suffux @ulearn.hub or create a user account to proceed');
         document.body.disabled = true;
         window.open('authman2.html');
     } else {
