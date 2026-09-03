@@ -99,7 +99,7 @@ function createUser() {
             localStorage.setItem('ulearnDatabase', JSON.stringify(database));
             console.log('Database updated successfully');
             //One user added to database
-            alert( "Dear " + newUser.name + " the creation of your Ulearn user account under the name " + newUser.avatar     + newUser.username + " has been successfully completed. Dont share you credentials with anyone. You can only access your account on this device. Continue to the sign in page to Sign into your account")
+            alert( "Dear " + newUser.name + " the creation of your Ulearn user account under the name " + newUser.avatar     + newUser.username + " has been successfully completed. Take keen note of your user name since it is needed for authentication and dont share your account credentials with anyone. You can only access your account on this device. Continue to the sign in page to Sign into your account")
             var $body = document.body;
             //send a notification to a user after the whole everything
             
