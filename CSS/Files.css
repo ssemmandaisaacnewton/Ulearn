@@ -1,0 +1,238 @@
+body {
+    background: white;
+    margin: 20px;
+    padding-left: 5px;
+}
+body:hover{
+    background: white;
+}
+#back {
+    border: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 9px;
+    padding-right: 9px;
+    width: 107px;
+    height: 33px;
+    background: #022d46;
+    border-radius: 7px;
+    color: white;
+}
+div#context {
+    position: absolute;
+    top: 200px;
+    left: 27px;
+}
+h1 {
+    margin-left: 406px;
+    margin-top: -127px;
+    font-size: 38px;
+    text-decoration: overline;
+    text-decoration-color: #022d46;
+    color: #022d46;
+}
+#ghi {
+    margin-left: 608px;
+    font-size: 38px;
+    text-decoration: overline;
+    text-decoration-color: #022d46;
+    color: #022d46;
+    margin-top: 10px;
+}
+
+h3 {
+    color: #022d46;
+    text-decoration: overline;
+    text-decoration-color: #022d46;
+}
+span.a {
+    margin-bottom: 0px;
+    line-height: 42px;
+    padding-top: 5px;
+    padding-bottom: 7px;
+    padding-left: 24px;
+    padding-right: 141px;
+    border-radius: 9px;
+}
+span.a:hover {
+    background: #022d4699;
+    margin-bottom: 0px;
+    line-height: 42px;
+    padding-top: 5px;
+    padding-bottom: 7px;
+    padding-left: 24px;
+    padding-right: 141px;
+    border-radius: 9px;
+    transform: scale(102%);
+    transition: ease-in 0.1s;
+}
+div#index {
+    background: beige;
+    width: 358px;
+    padding-top: 20px;
+    padding-bottom: 29px;
+    padding-left: 5px;
+    border-radius: 12px;
+}
+p {
+    display: list-item;
+    margin-left: 23px;
+}
+td.t {
+    background: #597d86;
+    padding-top: 5px;
+    padding-left: 11px;
+    padding-bottom: 5px;
+    line-height: 26px;
+    color: white;
+    padding-right: 9px;
+}
+td.d {
+    background: #f0f5d9;
+    padding-top: 5px;
+    padding-left: 18px;
+    padding-bottom: 5px;
+    line-height: 26px;
+    color: black;
+    padding-right: 9px;
+}
+#heading2 {
+    background: #f0f5d9;
+    padding-top: 5px;
+    padding-left: 18px;
+    padding-bottom: 5px;
+    line-height: 26px;
+    color: black;
+    padding-right: 9px;
+}
+#heading1 {
+    background: #597d86;
+    padding-top: 5px;
+    padding-left: 11px;
+    padding-bottom: 5px;
+    line-height: 26px;
+    color: white;
+    padding-right: 9px;
+}
+table {
+    background: #597d86;
+}
+#man {
+    margin-left: 543px;
+    font-size: 38px;
+    text-decoration: overline;
+    text-decoration-color: #022d46;
+    color: #022d46;
+    margin-top: 42px;
+}
+h2 {
+    text-decoration: overline;
+    text-decoration-color: #022d46;
+    color: #022d46;   
+}
+#h1 {
+    width: 800px;
+}
+span#action {
+    color: white;
+    background: #002d4e;
+    padding-top: 5px;
+    padding-bottom: 7px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-bottom-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+h3#note {
+    text-decoration: none;
+}
+button#quizbtn2 {
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 13px;
+    padding-right: 27px;
+    padding-left: 32px;
+    border-radius: 8px;
+    color: white;
+    background: #002d4e;
+}
+.button{
+    border-radius: 0px;
+}
+button.thisPage {
+    background: #78ff0000;
+    border-bottom-color: #002d4e;
+    text-decoration-color: #002d4e;
+    border-style: groove;
+    border-top: hidden;
+    border-right: hidden;
+    border-left: hidden;
+    border-radius: 0px;
+    border-width: thick;
+    color: #002d4e;
+}
+#bottom {
+    margin-left: 425px;
+    margin-top: 82px;
+    margin-bottom: 60px;
+    color:black;
+}
+#copyright {
+    color: black;
+}
+.feed:hover {
+    transform: scale(103%);
+    transition: ease-in 0.1s;
+    background: #78ff0000;
+    border-bottom-color: #002d4e;
+    text-decoration-color: #002d4e;
+    border-style: solid;
+    border-top: hidden;
+    border-right: hidden;
+    border-left: hidden;
+    border-radius: 0px;
+    border-width: thick;
+    color: #002d4e;
+}
+button#back:hover {
+    transform: scale(102.3%);
+    background: #0093ff;
+}
+button#quizbtn2:hover {
+    transform: scale(102.3%);
+    background: #0093ff;
+}
+div#adv {
+    background: #38034f;
+    width: fit-content;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 28px;
+    padding-left: 28px;
+    border-radius: 34px;
+    position: fixed;
+    top: 550px;
+    left: 1148px;
+    color: white;
+    animation-name: jump;
+    animation-duration: 2s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    transition: ease;
+}
+@keyframes jump {
+    from{scale: 100%;}
+    50% {background: green;}
+    to {scale: 105%;}
+}
+div#adv:hover {
+    background: #e9c808;
+    transition: ease-in;
+    transform: scale(103%);
+}
+
+div#context {
+    position: absolute;
+    top: 174px;
+    left: 27px;
+}

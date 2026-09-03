@@ -1,0 +1,249 @@
+body {
+    background: white;
+}
+
+.other:hover {
+   transform: scale(103%);
+   transition: ease-in 0.1s;
+   background: #78ff0000;
+   border-bottom-color: #002d4e;
+   text-decoration-color: #002d4e;
+   border-style: groove;
+   border-top: hidden;
+   border-right: hidden;
+   border-left: hidden;
+   border-radius: 0px;
+   border-width: thick;
+   color: #002d4e;
+}
+
+.thisPage:hover {
+   transform: scale(103%);
+   transition: ease-in 0.1s;
+}
+
+button.thisPage {
+   background: #78ff0000;
+   border-bottom-color: #002d4e;
+   text-decoration-color: #002d4e;
+   border-style: groove;
+   border-top: hidden;
+   border-right: hidden;
+   border-left: hidden;
+   border-radius: 0px;
+   border-width: thick;
+   color: #002d4e;
+}
+
+body:hover {
+   background: white;
+}
+
+#header {
+   font-size: 50px;
+   margin-top: -138px;
+   color: #002d4e;
+}
+
+.topic1, .topic2 {
+   border-top-color: black;
+   padding-left: 26px;
+   padding-top: 4px;
+   padding-bottom: 28px;
+   border-radius: 22px;
+   margin-bottom: 45px;
+   color: white;
+   transition: transform 0.2s ease-in;
+}
+
+.topic1 {
+   box-shadow: -1px 1px 7px 2px #52ff00;
+   background: #002d4e;
+}
+
+.topic2 {
+   box-shadow: -1px 1px 7px 2px #2000ff;
+   background: #5a05bb;
+}
+
+#toper {
+   color: black;
+   box-shadow: none;
+}
+
+#toper:hover {
+   transform: scale(100.3%);
+   transition: ease-in 0.2s;
+}
+
+details {
+   padding-bottom: 5px;
+   color: white;
+}
+
+#go {
+   background: #ffe4e49c;
+   border-radius: 9px;
+   border: none;
+   padding-left: 50px;
+   padding-right: 50px;
+   padding-top: 10px;
+   padding-bottom: 10px;
+   font-size: 17px;
+   backdrop-filter: blur(1px);
+   margin-top: 24px;
+   cursor: pointer;
+   touch-action: manipulation;
+   -webkit-tap-highlight-color: transparent;
+   min-height: 44px;
+}
+
+#go:hover {
+   background: #ffed00;
+}
+
+.note {
+   margin-top: 46px;
+   margin-left: 355px;
+   color: rgba(0, 0, 0, 0.5);
+}
+
+textarea {
+   width: 565px;
+   height: 59px;
+   background: #00ffde30;
+   border: none;
+   border-radius: 7px;
+   font-family: system-ui;
+   margin-left: 24px;
+   padding-left: 20px;
+   padding-right: 10px;
+   padding-top: 10px;
+}
+
+h2#topic {
+   color: white;
+}
+
+.button {
+   border-radius: 0px;
+}
+
+#bottom {
+   margin-left: 425px;
+   margin-top: 82px;
+   margin-bottom: 60px;
+   color: black;
+}
+
+#copyright {
+   color: black;
+}
+
+.feed:hover {
+   transform: scale(103%);
+   transition: ease-in 0.1s;
+   background: #78ff0000;
+   border-bottom-color: #002d4e;
+   text-decoration-color: #002d4e;
+   border-style: solid;
+   border-top: hidden;
+   border-right: hidden;
+   border-left: hidden;
+   border-radius: 0px;
+   border-width: thick;
+   color: #002d4e;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+   #header {
+       font-size: 36px;
+       margin-top: -50px;
+   }
+
+   .topic1, .topic2 {
+       padding-left: 16px;
+       padding-right: 16px;
+       margin-bottom: 30px;
+   }
+
+   #go {
+       padding-left: 30px;
+       padding-right: 30px;
+       font-size: 14px;
+   }
+
+   .note {
+       margin-left: 0;
+       margin-top: 30px;
+       padding: 0 16px;
+   }
+
+   textarea {
+       width: 100%;
+       margin-left: 0;
+       padding-left: 10px;
+       height: 50px;
+   }
+
+   #bottom {
+       margin-left: 0;
+       margin-top: 40px;
+       display: flex;
+       flex-direction: column;
+       gap: 10px;
+       padding: 0 10px;
+   }
+
+   #bottom a {
+       width: 100%;
+   }
+
+   #bottom .button {
+       width: 100%;
+       min-height: 44px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+   }
+
+   #copyright {
+       margin-top: 30px;
+       text-align: center;
+   }
+}
+
+@media (max-width: 480px) {
+   #header {
+       font-size: 28px;
+       margin-top: -30px;
+   }
+
+   .topic1, .topic2 {
+       padding-left: 12px;
+       padding-right: 12px;
+       padding-bottom: 20px;
+       border-radius: 12px;
+   }
+
+   #go {
+       padding-left: 20px;
+       padding-right: 20px;
+       font-size: 13px;
+       min-height: 40px;
+   }
+
+   textarea {
+       height: 40px;
+       font-size: 14px;
+   }
+
+   h2#topic {
+       font-size: 18px;
+   }
+
+   details {
+       font-size: 14px;
+   }
+}

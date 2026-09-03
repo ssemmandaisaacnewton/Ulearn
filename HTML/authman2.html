@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account || Ulearn.com</title>
+    <link rel="icon" href="../IMAGES/favicno.png">
+    <link rel="stylesheet" href="../CSS/authdark.css">
+    <script src="../Js/authman2.js"></script>
+    <style>
+        /* ---------- animatable accent tokens ---------- */
+        @property --accent-1 {
+            syntax: '<color>';
+            inherits: true;
+            initial-value: #4c8dff;
+        }
+
+        @property --accent-2 {
+            syntax: '<color>';
+            inherits: true;
+            initial-value: #2f6fe0;
+        }
+
+        @property --accent-glow {
+            syntax: '<color>';
+            inherits: true;
+            initial-value: #4c8dff;
+        }
+
+        :root {
+            --danger: #ef6f6a;
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --ease: cubic-bezier(.4, 0, .2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-0: #090c12;
+            --bg-1: #0d1119;
+            --card: #12161f;
+            --card-edge: #1c2130;
+            --field: #171c28;
+            --field-edge: #262c3d;
+            --field-edge-hover: #333b52;
+            --ink-1: #eceff5;
+            --ink-2: #8a92a6;
+            --ink-3: #565e73;
+            --line-op: 0.28;
+            --dot-op: 0.55;
+            --card-shadow: 0 40px 80px -30px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 255, 255, .02) inset;
+        }
+
+        [data-theme="light"] {
+            --bg-0: #e9edf5;
+            --bg-1: #f6f8fc;
+            --card: #ffffff;
+            --card-edge: #e2e6ef;
+            --field: #f2f4f9;
+            --field-edge: #dde1eb;
+            --field-edge-hover: #c5cbdb;
+            --ink-1: #171b26;
+            --ink-2: #5b6274;
+            --ink-3: #8a90a3;
+            --line-op: 0.16;
+            --dot-op: 0.4;
+            --card-shadow: 0 30px 60px -30px rgba(30, 41, 71, .18), 0 0 0 1px rgba(20, 26, 46, .03) inset;
+        }
+
+        [data-role="teacher"] {
+            --accent-1: #4c8dff;
+            --accent-2: #2f6fe0;
+            --accent-glow: rgba(76, 141, 255, .35);
+        }
+
+        [data-role="student"] {
+            --accent-1: #2fd9b8;
+            --accent-2: #16b896;
+            --accent-glow: rgba(47, 217, 184, .35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(ellipse 120% 80% at 50% -10%, var(--bg-1), var(--bg-0) 60%);
+            color: var(--ink-1);
+            font-family: 'Inter', system-ui, sans-serif;
+            transition: color .5s var(--ease);
+        }
+
+        body {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 64px 20px 40px;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Manrope', 'Inter', sans-serif;
+            margin: 0;
+        }
+
+        /* ---------- ambient network backdrop ---------- */
+        .field {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .field svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .field .net-lines {
+            stroke: var(--accent-1);
+            opacity: var(--line-op);
+            transition: stroke .6s var(--ease), opacity .5s var(--ease);
+        }
+
+        .field .net-dots {
+            fill: var(--accent-1);
+            opacity: var(--dot-op);
+            transition: fill .6s var(--ease), opacity .5s var(--ease);
+        }
+
+        .theme-dot {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 2;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--card);
+            border: 1px solid var(--card-edge);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ink-2);
+            cursor: pointer;
+            transition: background .4s var(--ease), border-color .4s var(--ease);
+        }
+
+        /* ---------- card ---------- */
+        main.card {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 460px;
+            background: linear-gradient(180deg, var(--card), color-mix(in srgb, var(--card) 92%, black));
+            border: 1px solid var(--card-edge);
+            border-radius: var(--radius-lg);
+            padding: 40px 36px 36px;
+            box-shadow: var(--card-shadow);
+            transition: background .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease);
+            animation: rise .6s var(--ease) both;
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ---------- logo (above the card) ---------- */
+        .logo-wrap {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 26px;
+        }
+
+        .brand-lockup {
+            display: none;
+            align-items: center;
+            gap: 9px;
+        }
+
+        [data-theme="dark"] .brand-lockup--dark {
+            display: flex;
+        }
+
+        [data-theme="light"] .brand-lockup--light {
+            display: flex;
+        }
+
+        .brand-mark {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .brand-mark circle {
+            fill: var(--accent-1);
+            transition: fill .5s var(--ease);
+        }
+
+        .brand-mark path {
+            stroke: var(--accent-1);
+            transition: stroke .5s var(--ease);
+        }
+
+        .brand-word {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: 19px;
+            letter-spacing: -.01em;
+        }
+
+        .brand-lockup--dark .brand-word {
+            color: #eceff5;
+        }
+
+        .brand-lockup--light .brand-word {
+            color: #171b26;
+        }
+
+        /* ---------- role toggle (signature element) ---------- */
+        .role-toggle {
+            position: relative;
+            display: flex;
+            width: 100%;
+            max-width: 260px;
+            margin: 0 auto 28px;
+            padding: 4px;
+            background: var(--field);
+            border: 1px solid var(--field-edge);
+            border-radius: 999px;
+        }
+
+        .role-thumb {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            box-shadow: 0 6px 16px -4px var(--accent-glow);
+            transition: transform .38s var(--ease), background .5s var(--ease), box-shadow .5s var(--ease);
+        }
+
+        [data-role="teacher"] .role-thumb {
+            transform: translateX(calc(100% + 0px));
+        }
+
+        [data-role="student"] .role-thumb {
+            transform: translateX(0);
+        }
+
+        .role-option {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 7px 10px;
+            border: none;
+            background: transparent;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .08em;
+            color: var(--ink-3);
+            cursor: pointer;
+            transition: color .3s var(--ease);
+        }
+
+        .role-option svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        [data-role="student"] .role-option[data-role-btn="student"],
+        [data-role="teacher"] .role-option[data-role-btn="teacher"] {
+            color: #0a0e15;
+        }
+
+        [data-role="student"] .role-option[data-role-btn="teacher"],
+        [data-role="teacher"] .role-option[data-role-btn="student"] {
+            color: var(--ink-2);
+        }
+
+        /* ---------- header copy ---------- */
+        .heading {
+            text-align: center;
+            margin-bottom: 26px;
+        }
+
+        .heading h1 {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -.01em;
+        }
+
+        .heading p {
+            margin: 8px 0 0;
+            font-size: 14px;
+            color: var(--ink-2);
+            line-height: 1.5;
+        }
+
+        .role-word {
+            color: var(--ink-1);
+            font-weight: 600;
+            transition: color .4s var(--ease);
+        }
+
+        /* ---------- form ---------- */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .fld {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .fld-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        label.fld-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink-1);
+        }
+
+        label.fld-label .req {
+            color: var(--danger);
+            margin-left: 2px;
+        }
+
+        label.fld-label .id-label {
+            transition: color .1s;
+        }
+
+        a.link {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--accent-1);
+            text-decoration: none;
+            transition: color .4s var(--ease);
+        }
+
+        a.link:hover {
+            text-decoration: underline;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--field);
+            border: 1px solid var(--field-edge);
+            border-radius: var(--radius-md);
+            color: var(--ink-1);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: border-color .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 100%;
+            padding: 12px 36px 12px 14px;
+            background: var(--field);
+            border: 1px solid var(--field-edge);
+            border-radius: var(--radius-md);
+            color: var(--ink-1);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
+        }
+
+        select:invalid {
+            color: var(--ink-3);
+        }
+
+        .chevron {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 13px;
+            height: 13px;
+            color: var(--ink-3);
+            pointer-events: none;
+        }
+
+        input::placeholder {
+            color: var(--ink-3);
+        }
+
+        input:hover,
+        select:hover {
+            border-color: var(--field-edge-hover);
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--accent-1);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        input[type="password"] {
+            padding-right: 42px;
+        }
+
+        .eye-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            padding: 4px;
+            display: flex;
+            color: var(--ink-3);
+            cursor: pointer;
+            transition: color .2s var(--ease);
+        }
+
+        .eye-btn:hover {
+            color: var(--ink-2);
+        }
+
+        .eye-btn svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .hint {
+            font-size: 11.5px;
+            color: var(--ink-3);
+            margin-top: -2px;
+        }
+
+        button.primary {
+            margin-top: 6px;
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: #0a0e15;
+            font-family: 'Inter', sans-serif;
+            font-size: 14.5px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 12px 24px -10px var(--accent-glow);
+            transition: transform .18s var(--ease), box-shadow .35s var(--ease), background .5s var(--ease);
+        }
+
+        button.primary:hover {
+            transform: translateY(-1px);
+        }
+
+        button.primary:active {
+            transform: translateY(0);
+        }
+
+        footer {
+            position: relative;
+            z-index: 1;
+            margin-top: 26px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10.5px;
+            letter-spacing: .12em;
+            color: var(--ink-3);
+            text-transform: uppercase;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--accent-1);
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 480px) {
+            main.card {
+                padding: 32px 22px 28px;
+                border-radius: 16px;
+            }
+
+            .heading h1 {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .row-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body data-theme="dark">
+    <div class="field" aria-hidden="true">
+        <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+            <g class="net-lines" fill="none" stroke-width="1">
+                <line x1="120" y1="70" x2="480" y2="330" />
+                <line x1="480" y1="330" x2="230" y2="560" />
+                <line x1="1260" y1="150" x2="980" y2="380" />
+                <line x1="980" y1="380" x2="1180" y2="640" />
+                <line x1="230" y1="560" x2="80" y2="760" />
+                <line x1="1180" y1="640" x2="1340" y2="820" />
+            </g>
+            <g class="net-dots">
+                <circle cx="120" cy="70" r="3.5" />
+                <circle cx="480" cy="330" r="3" />
+                <circle cx="230" cy="560" r="3" />
+                <circle cx="80" cy="760" r="2.5" />
+                <circle cx="1260" cy="150" r="3" />
+                <circle cx="980" cy="380" r="3.5" />
+                <circle cx="1180" cy="640" r="3" />
+                <circle cx="1340" cy="820" r="2.5" />
+            </g>
+        </svg>
+    </div>
+
+    <button class="theme-dot" id="themeBtn" aria-label="Switch to light mode" type="button">
+        <svg id="themeIcon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
+        </svg>
+    </button>
+    <div class="logo-wrap">
+        <div class="brand-lockup brand-lockup--dark">
+            <img src="../IMAGES/logo1.png" alt="">
+        </div>
+        <div class="brand-lockup brand-lockup--light">
+            <img src="../IMAGES/logo.png" alt="">
+        </div>
+    </div>
+
+
+
+    <main class="card">
+
+        <div class="role-toggle" role="group" aria-label="Create account as">
+            <span class="role-thumb" aria-hidden="true"></span>
+            <button type="button" class="role-option" data-role-btn="student" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M4 19.5V6a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v13.5" />
+                    <path d="M4 19.5A1.5 1.5 0 0 1 5.5 18H17a2 2 0 0 1 2 2" />
+                    <path d="M8 7h6M8 10.5h6" />
+                </svg>
+                STUDENT
+            </button>
+            <button type="button" class="role-option" data-role-btn="teacher" aria-pressed="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M2 9.5 12 5l10 4.5-10 4.5-10-4.5Z" />
+                    <path d="M6 11.6v4.4c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-4.4" />
+                    <path d="M21 9.5v6" />
+                </svg>
+                TEACHER
+            </button>
+        </div>
+
+        <div class="heading">
+            <h1>Create account</h1>
+            <p>Set up your <span class="role-word" id="roleWord">teaching console</span> access.</p>
+        </div>
+
+        <form autocomplete="off" onsubmit="return false;">
+            <div class="row-2">
+                <div class="fld">
+                    <label class="fld-label" for="firstName">First name<span class="req">*</span></label>
+                    <div class="input-wrap">
+                        <input type="text" id="firstName" placeholder="Amara" required>
+                    </div>
+                </div>
+                <div class="fld">
+                    <label class="fld-label" for="lastName">Last name<span class="req">*</span></label>
+                    <div class="input-wrap">
+                        <input type="text" id="lastName" placeholder="Okello" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-2">
+                <div class="fld">
+                    <label class="fld-label" for="age">Age<span class="req">*</span></label>
+                    <div class="input-wrap">
+                        <input type="number" id="age" min="4" max="100" placeholder="e.g. 16" required>
+                    </div>
+                </div>
+                <div class="fld">
+                    <label class="fld-label" for="sex">Sex<span class="req">*</span></label>
+                    <div class="input-wrap">
+                        <select id="sex" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="female">Female</option>
+                            <option value="male">Male</option>
+                            <option value="unspecified">Prefer not to say</option>
+                        </select>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fld">
+                <label class="fld-label" for="email">Avatar<span class="req">*</span></label>
+                <div class="input-wrap">
+                    <select name="avatar" id="avatar" required>
+                        <option value="" disabled selected>Select an avatar</option>
+                        <option value="👩‍🦰">👩‍🦰</option>
+                        <option value="🤴">🤴</option>
+                        <option value="👦">👦</option>
+                        <option value="🧔">🧔</option>
+                        <option value="👨‍🎓">👨‍🎓</option>
+                        <option value="🙎‍♀️">🙎‍♀️</option>
+                        <option value="👸">👸</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="fld">
+                <label class="fld-label" for="password">Password<span class="req">*</span></label>
+                <div class="input-wrap">
+                    <input type="password" id="password" placeholder="Create a password" required>
+                    <button type="button" class="eye-btn" data-target="password" aria-label="Show password">
+                        <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                    </button>
+                </div>
+                <span class="hint">At least 8 characters.</span>
+            </div>
+
+            <div class="fld">
+                <label class="fld-label" for="confirmPassword">Confirm password<span class="req">*</span></label>
+                <div class="input-wrap">
+                    <input type="password" id="confirmPassword" placeholder="Re-enter your password" required>
+                    <button type="button" class="eye-btn" data-target="confirmPassword" aria-label="Show password">
+                        <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" class="primary" id="create">Create account</button>
+        </form>
+
+        <div style="position:relative;z-index:1;margin-top:22px;text-align:center;font-size:13px;">
+            <span style="color:var(--ink-2);">Already have an account?</span>
+            <a href="authman1.html" class="link">Sign in</a>
+        </div>
+
+    </main>
+
+    <footer>© 2026 Ssemmanda Isaac</footer>
+
+    <script>
+        const body = document.body;
+        const roleBtns = document.querySelectorAll('.role-option');
+        const roleWord = document.getElementById('roleWord');
+
+        const copy = {
+            teacher: { word: 'teaching console', idLabel: 'Staff ID', idPlaceholder: 'e.g. STF-1042' },
+            student: { word: 'student portal', idLabel: 'Student ID', idPlaceholder: 'e.g. STU-2031' }
+        };
+
+        function setRole(role) {
+            body.setAttribute('data-role', role);
+            roleWord.textContent = copy[role].word;
+            roleBtns.forEach(btn => {
+                btn.setAttribute('aria-pressed', btn.dataset.roleBtn === role);
+            });
+        }
+        roleBtns.forEach(btn => btn.addEventListener('click', () => setRole(btn.dataset.roleBtn)));
+
+        const eyeOpen = '<path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z"/><circle cx="12" cy="12" r="3"/>';
+        const eyeClosed = '<path d="M3 3l18 18"/><path d="M10.6 5.1A10.8 10.8 0 0 1 12 5c7 0 10.5 7 10.5 7a13.6 13.6 0 0 1-3.1 4.1M6.6 6.6C3.4 8.6 1.5 12 1.5 12s3.5 7 10.5 7a10.6 10.6 0 0 0 4.2-.9"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>';
+
+        document.querySelectorAll('.eye-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const input = document.getElementById(btn.dataset.target);
+                const icon = btn.querySelector('.eye-icon');
+                const show = input.type === 'password';
+                input.type = show ? 'text' : 'password';
+                icon.innerHTML = show ? eyeClosed : eyeOpen;
+                btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+            });
+        });
+
+        const themeBtn = document.getElementById('themeBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const moonPath = '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>';
+        const sunPath = '<circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/>';
+
+        themeBtn.addEventListener('click', () => {
+            const goingLight = body.getAttribute('data-theme') === 'dark';
+            body.setAttribute('data-theme', goingLight ? 'light' : 'dark');
+            themeIcon.innerHTML = goingLight ? sunPath : moonPath;
+            themeBtn.setAttribute('aria-label', goingLight ? 'Switch to dark mode' : 'Switch to light mode');
+        });
+    </script>
+</body>
+
+</html>`

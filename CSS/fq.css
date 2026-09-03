@@ -1,0 +1,302 @@
+body {
+    background: white;
+}
+
+button.thisPage {
+    background: #78ff0000;
+    border-bottom-color: #002d4e;
+    text-decoration-color: #002d4e;
+    border-style: groove;
+    border-top: hidden;
+    border-right: hidden;
+    border-left: hidden;
+    border-radius: 0px;
+    border-width: thick;
+    color: #002d4e;
+}
+
+h1#hf {
+    margin-left: 365px;
+    margin-top: -127px;
+    font-size: 38px;
+    text-decoration: overline;
+    text-decoration-color: #022d46;
+    color: #022d46;
+}
+
+div#questions {
+    margin-left: 15px;
+    padding-top: 10px;
+    padding-left: 50px;
+    padding-bottom: 10px;
+    border-radius: 20px;
+}
+
+.qn {
+    background: #f5f5dc47;
+    padding-bottom: 29px;
+    padding-top: 8px;
+    margin-bottom: 31px;
+    padding-left: 41px;
+    width: fit-content;
+    color: #00223b;
+    border-radius: 20px;
+    padding-right: 150px;
+    box-shadow: 0px 0px 5px 0px #002d4e94;
+    line-height: 27px;
+}
+
+/*handlers for the answers being correct or wrong after script verification*/
+#correct {
+    box-shadow: 0px 0px 13px 0px #3cf70394;
+}
+
+#wrong {
+    box-shadow: 0px 0px 13px 0px #ff000094;
+}
+
+.qn:hover {
+    transform: scale(101%);
+    transition: ease;
+}
+
+button#process {
+    border: none;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 55px;
+    padding-left: 55px;
+    color: white;
+    background: #002d4e;
+    border-radius: 18px;
+    margin-left: 560px;
+    transition: ease;
+}
+
+h2#head {
+    margin-left: 510px;
+    text-decoration: overline;
+    color: #002d4e;
+    text-decoration-color: #002d4e;
+}
+
+button#process:hover {
+    background: orange;
+    scale: 103%;
+}
+
+button.thisPage {
+    background: #78ff0000;
+    border-bottom-color: #002d56;
+    text-decoration-color: #002d4e;
+    border-style: solid;
+    border-top: hidden;
+    border-right: hidden;
+    border-left: hidden;
+    border-radius: 0px;
+    border-width: thick;
+    color: #002d56;
+}
+
+.button {
+    border-radius: 0px;
+}
+
+#bottom {
+    margin-left: 425px;
+    margin-top: 82px;
+    margin-bottom: 60px;
+    color: black;
+}
+
+#copyright {
+    color: black;
+}
+
+.other:hover {
+    transform: scale(103%);
+    transition: ease-in 0.1s;
+    background: #78ff0000;
+    border: solid;
+    border-bottom-color: #002d4e;
+    text-decoration-color: #002d4e;
+    border-top: hidden;
+    border-right: hidden;
+    border-left: hidden;
+    border-radius: 0px;
+    border-width: thick;
+    color: #002d4e;
+}
+
+.feed:hover {
+    transform: scale(103%);
+    transition: ease-in 0.1s;
+    background: #78ff0000;
+    border-bottom-color: #002d4e;
+    text-decoration-color: #002d4e;
+    border-style: solid;
+    border-top: hidden;
+    border-right: hidden;
+    border-left: hidden;
+    border-radius: 0px;
+    border-width: thick;
+    color: #002d4e;
+}
+
+div#cover {
+    background: #0e4b6185;
+    width: 1350px;
+    height: 639px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    backdrop-filter: blur(10px);
+}
+
+div#pop {
+    background: white;
+    width: 800px;
+    margin-left: 300px;
+    margin-top: 135px;
+    padding-top: 15px;
+    padding-left: 50px;
+    padding-bottom: 30px;
+    color: #001c30;
+    border-radius: 25px;
+    box-shadow: 0px 0px 20px 2px #002d4e;
+    animation-name: entry;
+    animation-duration: 2s;
+}
+
+@keyframes entry {
+    from {
+        opacity: 0;
+        margin-left: -900px;
+    }
+
+    50% {
+        opacity: 2;
+    }
+
+    to {
+        opacity: 5;
+        margin-left: 300px;
+    }
+}
+
+input#scar {
+    height: 40px;
+    width: 400px;
+    padding-left: 12px;
+    border-radius: 3px;
+    border-style: solid;
+    border-color: #002d4e;
+    font-size: 18px;
+    padding-right: 7px;
+    font-family: system-ui;
+}
+
+button#go {
+    border: none;
+    padding-top: 7px;
+    padding-bottom: 8px;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: white;
+    background: #002d4ee0;
+}
+
+button#go {
+    border: none;
+    padding-top: 7px;
+    padding-bottom: 8px;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: white;
+    background: #002d4ee0;
+    margin-top: 15px;
+    margin-left: 305px;
+    border-radius: 7px;
+}
+
+button#go:hover {
+    transform: scale(102%);
+    background: #002d4e;
+    transition: ease;
+}
+
+div#pop2 {
+    background: white;
+    width: fit-content;
+    margin-left: 295px;
+    margin-top: 55px;
+    padding-top: 45px;
+    padding-left: 80px;
+    padding-bottom: 90px;
+    color: #001c30;
+    border-radius: 25px;
+    box-shadow: 0px 0px 20px 2px #002d4e;
+    animation-name: entry;
+    animation-duration: 2s;
+    padding-right: 90px;
+    align-content: center;
+}
+
+#holder {
+    scale: 315%;
+    margin-left: 195px;
+    margin-top: 101px;
+}
+
+#com {
+    margin-left: 192px;
+    font-size: 23px;
+}
+
+#res {
+    margin-left: 250px;
+    margin-top: 39px;
+    font-size: 70px;
+}
+
+button#go2 {
+    border: none;
+    padding-top: 7px;
+    padding-bottom: 8px;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: white;
+    background: #002d4ee0;
+    margin-top: 30px;
+    border-radius: 35px;
+    margin-left: 100px;
+    height: 50px;
+    box-shadow: 2px 2px 2px black;
+}
+
+button#go2:hover {
+    transform: scale(102%);
+    background: #002d4e;
+    transition: ease;
+}
+
+#review {
+    width: 160px;
+    padding-top: 7px;
+    padding-bottom: 8px;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: #002d4ee0;
+    background: white;
+    margin-top: 30px;
+    border-radius: 35px;
+    margin-left: 100px;
+    height: 50px;
+    border-color: #002d4ee0;
+    border-width: 2px;
+    border-style: solid;
+}
+button#review:hover {
+    transform: scale(102%);
+    transition: ease;
+}

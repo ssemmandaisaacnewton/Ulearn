@@ -1,0 +1,73 @@
+/*for phones and narrow windows*/
+@media screen and  (max-width: 1342px) {
+  #content {
+    display: none;
+  }
+  .devblock {
+    -webkit-font-smoothing: antialiased;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    animation-name: fade;
+    animation-duration: 2s;
+  }
+  @keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100;
+    }
+}
+p {
+    text-align: center;
+}
+  body {
+    background-image: none;
+  }
+  #cover {
+    display: none;
+  }
+}
+/*for perfect fit*/
+@media screen and  (min-width: 1343px) {
+  #content {
+   
+  }
+  .devblock {
+     display: none;
+  }
+}
+/*for emulated devices*/
+@media (max-width: 1342px), (pointer: coarse) {
+  #content {
+    display: none;
+  }
+  .devblock {
+    -webkit-font-smoothing: antialiased;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    animation-name: fade;
+    animation-duration: 2s;
+  }
+  @keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100;
+    }
+}
+p {
+    text-align: center;
+}
+  body {
+    background-image: none;
+  }
+  #cover {
+    display: none;
+  }
+}

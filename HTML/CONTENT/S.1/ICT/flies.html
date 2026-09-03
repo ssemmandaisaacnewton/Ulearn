@@ -1,0 +1,3757 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>File and Folder Management / ICT || ULearn.com</title>
+
+    <link rel="icon" href="../../../../IMAGES/favicno.png">
+
+    <script>
+        /* ============================================================
+           MOBILE SIDEBAR
+        ============================================================ */
+
+        (function () {
+
+            function setupMobileSidebar() {
+
+                const sidebar = document.getElementById("sidebar");
+                const menuBtn = document.getElementById("mobileMenuBtn");
+                const overlay = document.getElementById("sidebarOverlay");
+
+                if (!sidebar || !menuBtn || !overlay) return;
+
+                function isMobile() {
+                    return window.matchMedia("(max-width: 900px)").matches;
+                }
+
+                function openMenu() {
+
+                    if (!isMobile()) return;
+
+                    sidebar.classList.add("mobile-open");
+                    overlay.classList.add("open");
+
+                    menuBtn.setAttribute("aria-expanded", "true");
+                    menuBtn.setAttribute(
+                        "aria-label",
+                        "Close navigation menu"
+                    );
+
+                    overlay.setAttribute("aria-hidden", "false");
+                }
+
+                function closeMenu() {
+
+                    sidebar.classList.remove("mobile-open");
+                    overlay.classList.remove("open");
+
+                    menuBtn.setAttribute("aria-expanded", "false");
+                    menuBtn.setAttribute(
+                        "aria-label",
+                        "Open navigation menu"
+                    );
+
+                    overlay.setAttribute("aria-hidden", "true");
+                }
+
+                menuBtn.addEventListener("click", function () {
+
+                    if (sidebar.classList.contains("mobile-open")) {
+                        closeMenu();
+                    } else {
+                        openMenu();
+                    }
+
+                });
+
+                overlay.addEventListener("click", closeMenu);
+
+                sidebar.querySelectorAll("a").forEach(function (link) {
+
+                    link.addEventListener("click", function () {
+
+                        if (isMobile()) {
+                            closeMenu();
+                        }
+
+                    });
+
+                });
+
+                document.addEventListener("keydown", function (event) {
+
+                    if (event.key === "Escape") {
+                        closeMenu();
+                    }
+
+                });
+
+                window.addEventListener("resize", function () {
+
+                    if (!isMobile()) {
+                        closeMenu();
+                    }
+
+                });
+
+            }
+
+            if (document.readyState === "loading") {
+
+                document.addEventListener(
+                    "DOMContentLoaded",
+                    setupMobileSidebar
+                );
+
+            } else {
+
+                setupMobileSidebar();
+
+            }
+
+        })();
+    </script>
+
+    <style>
+        /* ============================================================
+           THEME SYSTEM
+        ============================================================ */
+
+        :root {
+
+            --bg: #000000;
+            --bg-2: #07060c;
+
+            --panel: #0d0c12;
+            --panel-2: #151420;
+
+            --border: rgba(77, 163, 255, 0.22);
+
+            --glow:
+                0 4px 26px rgba(77, 163, 255, 0.10);
+
+            --text: #f3f1fa;
+            --text-dim: #8d879e;
+
+            --accent: #4da3ff;
+            --accent-2: #2f7de0;
+            --accent-soft: rgba(77, 163, 255, 0.15);
+
+            --topics: #f5c518;
+            --topics-soft: rgba(245, 197, 24, 0.14);
+
+            --quizzes: #3b9dff;
+            --quizzes-soft: rgba(59, 157, 255, 0.14);
+
+            --tutor: #3ddc84;
+            --tutor-soft: rgba(61, 220, 132, 0.14);
+
+            --library: #ff8a3d;
+            --library-soft: rgba(255, 138, 61, 0.14);
+
+            /* LESSON COLORS */
+
+            --lesson-card: #101018;
+            --lesson-card-2: #14141e;
+
+            --lesson-heading: #f3f1fa;
+
+            --lesson-line: rgba(255, 255, 255, 0.07);
+
+            --lesson-table-head:
+                rgba(77, 163, 255, 0.12);
+
+            --lesson-table-row:
+                rgba(255, 255, 255, 0.025);
+
+            --lesson-note:
+                rgba(245, 197, 24, 0.10);
+
+            --lesson-note-border:
+                rgba(245, 197, 24, 0.35);
+        }
+
+
+        html[data-theme="light"] {
+
+            --bg: #f6f7fb;
+            --bg-2: #f6f7fb;
+
+            --panel: #ffffff;
+            --panel-2: #f0f2f8;
+
+            --border: #dbe8ff;
+
+            --glow: none;
+
+            --text: #1b1930;
+            --text-dim: #6f6a82;
+
+            --lesson-card: #ffffff;
+            --lesson-card-2: #f7f9fd;
+
+            --lesson-heading: #17152a;
+
+            --lesson-line: #e6eaf2;
+
+            --lesson-table-head:
+                rgba(77, 163, 255, 0.09);
+
+            --lesson-table-row:
+                rgba(20, 30, 50, 0.025);
+
+            --lesson-note:
+                rgba(245, 197, 24, 0.12);
+
+            --lesson-note-border:
+                rgba(210, 160, 0, 0.35);
+        }
+
+
+        /* ============================================================
+           GLOBAL RESET
+        ============================================================ */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family: 'Inter', sans-serif;
+
+            color: var(--text);
+
+            background:
+                linear-gradient(160deg,
+                    var(--bg) 0%,
+                    var(--bg-2) 100%);
+
+            display: flex;
+
+            height: 100vh;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        h1,
+        h2,
+        h3,
+        .brand-name,
+        .page-title {
+
+            font-family:
+                'Space Grotesk',
+                sans-serif;
+        }
+
+
+        /* ============================================================
+           BACKGROUND DECORATION
+        ============================================================ */
+
+        .bg-circle {
+
+            position: fixed;
+
+            border-radius: 50%;
+
+            filter: blur(6px);
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        html[data-theme="light"] .bg-circle {
+            opacity: 1;
+        }
+
+
+        .bg-circle.c1 {
+
+            width: 380px;
+            height: 380px;
+
+            top: -100px;
+            right: -80px;
+
+            background:
+                rgba(77, 163, 255, 0.10);
+        }
+
+
+        .bg-circle.c2 {
+
+            width: 300px;
+            height: 300px;
+
+            bottom: -60px;
+            left: 18%;
+
+            background:
+                rgba(77, 163, 255, 0.07);
+        }
+
+
+        /* ============================================================
+           SIDEBAR
+        ============================================================ */
+
+        .sidebar {
+
+            width: 250px;
+
+            height: 100vh;
+
+            background: var(--panel);
+
+            border-right:
+                1px solid var(--border);
+
+            display: flex;
+
+            flex-direction: column;
+
+            padding: 18px 14px;
+
+            flex-shrink: 0;
+
+            position: relative;
+
+            z-index: 100;
+
+            box-shadow: var(--glow);
+
+            transition: width .2s ease;
+
+            overflow-y: auto;
+        }
+
+
+        .sidebar.collapsed {
+            width: 76px;
+        }
+
+
+        .sidebar.collapsed .nav-label,
+        .sidebar.collapsed .brand-name,
+        .sidebar.collapsed .sign-out-label {
+            display: none;
+        }
+
+
+        .sidebar.collapsed .brand {
+            justify-content: center;
+        }
+
+
+        .sidebar.collapsed .nav-item {
+            justify-content: center;
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding:
+                6px 6px 22px 6px;
+        }
+
+
+        .logo-dark,
+        .logo-light {
+
+            width: 32px;
+            height: 32px;
+
+            flex-shrink: 0;
+        }
+
+
+        .logo-light {
+            display: none;
+        }
+
+
+        html[data-theme="light"] .logo-dark {
+            display: none;
+        }
+
+
+        html[data-theme="light"] .logo-light {
+            display: block;
+        }
+
+
+        .brand-name {
+
+            font-weight: 700;
+
+            font-size: 16px;
+        }
+
+
+        .collapse-btn {
+
+            margin-left: auto;
+
+            width: 24px;
+            height: 24px;
+
+            border: none;
+
+            background: transparent;
+
+            color: var(--text-dim);
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .sidebar.collapsed .collapse-btn {
+            margin-left: 0;
+        }
+
+
+        .collapse-btn svg {
+
+            width: 16px;
+            height: 16px;
+
+            transition:
+                transform .2s ease;
+        }
+
+
+        .sidebar.collapsed .collapse-btn svg {
+
+            transform:
+                rotate(180deg);
+        }
+
+
+        .nav {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+
+            margin-top: 4px;
+        }
+
+
+        .nav-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding:
+                11px 14px;
+
+            border-radius: 12px;
+
+            color: var(--text-dim);
+
+            text-decoration: none;
+
+            font-size: 14.5px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transition:
+                transform .15s ease,
+                background .15s ease,
+                color .15s ease;
+        }
+
+
+        .nav-icon {
+
+            width: 30px;
+            height: 30px;
+
+            border-radius: 9px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .nav-icon svg {
+
+            width: 16px;
+            height: 16px;
+        }
+
+
+        .nav-item.active {
+
+            background: transparent;
+
+            color: var(--text);
+        }
+
+
+        .nav-item.topics {
+
+            background:
+                var(--topics-soft);
+
+            --item-color:
+                var(--topics);
+
+            --item-soft:
+                var(--topics-soft);
+        }
+
+
+        .nav-item.quizzes {
+
+            --item-color:
+                var(--quizzes);
+
+            --item-soft:
+                var(--quizzes-soft);
+        }
+
+
+        .nav-item.tutor {
+
+            --item-color:
+                var(--tutor);
+
+            --item-soft:
+                var(--tutor-soft);
+        }
+
+
+        .nav-item.library {
+
+            --item-color:
+                var(--library);
+
+            --item-soft:
+                var(--library-soft);
+        }
+
+
+        .nav-item.connect {
+
+            --item-color:
+                var(--text);
+
+            --item-soft:
+                var(--panel-2);
+
+            margin-top: auto;
+        }
+
+
+        .nav-item:hover {
+
+            background:
+                var(--item-soft);
+
+            color:
+                var(--item-color);
+
+            transform:
+                scale(1.04);
+        }
+
+
+        .nav-item.active .nav-icon {
+
+            background:
+                rgba(77, 163, 255, 0.25);
+        }
+
+
+        .nav-item.active .nav-icon svg {
+
+            stroke:
+                var(--accent);
+        }
+
+
+        .nav-item.topics .nav-icon {
+
+            background:
+                var(--topics-soft);
+        }
+
+
+        .nav-item.topics .nav-icon svg {
+
+            stroke:
+                var(--topics);
+        }
+
+
+        .nav-item.quizzes .nav-icon {
+
+            background:
+                var(--quizzes-soft);
+        }
+
+
+        .nav-item.quizzes .nav-icon svg {
+
+            stroke:
+                var(--quizzes);
+        }
+
+
+        .nav-item.tutor .nav-icon {
+
+            background:
+                var(--tutor-soft);
+        }
+
+
+        .nav-item.tutor .nav-icon svg {
+
+            stroke:
+                var(--tutor);
+        }
+
+
+        .nav-item.library .nav-icon {
+
+            background:
+                var(--library-soft);
+        }
+
+
+        .nav-item.library .nav-icon svg {
+
+            stroke:
+                var(--library);
+        }
+
+
+        .nav-item.connect .nav-icon {
+
+            background:
+                var(--panel-2);
+        }
+
+
+        .nav-item.connect .nav-icon svg {
+
+            stroke:
+                var(--text);
+        }
+
+
+        .sign-out {
+
+            margin-top: 14px;
+
+            background:
+                linear-gradient(135deg,
+                    var(--accent),
+                    var(--accent-2));
+
+            border: none;
+
+            color: #fff;
+
+            padding: 12px;
+
+            border-radius: 12px;
+
+            font-weight: 600;
+
+            font-size: 14.5px;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+        }
+
+
+        /* ============================================================
+           MAIN
+        ============================================================ */
+
+        .main {
+
+            flex: 1;
+
+            height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+
+            position: relative;
+
+            z-index: 1;
+
+            overflow: hidden;
+
+            min-width: 0;
+        }
+
+
+        /* ============================================================
+           TOP BAR
+        ============================================================ */
+
+        .top-row {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-start;
+
+            flex-wrap: wrap;
+
+            gap: 14px;
+
+            padding:
+                22px 34px 18px;
+
+            flex-shrink: 0;
+
+            background:
+                var(--bg);
+
+            border-bottom:
+                1px solid var(--accent);
+        }
+
+
+        .eyebrow {
+
+            font-size: 11px;
+
+            letter-spacing: 1px;
+
+            color:
+                var(--text-dim);
+
+            font-weight: 600;
+
+            text-transform:
+                uppercase;
+        }
+
+
+        .page-title {
+
+            font-size: 26px;
+
+            font-weight: 700;
+
+            margin:
+                4px 0 4px;
+        }
+
+
+        .greeting {
+
+            font-size: 13.5px;
+
+            color:
+                var(--text-dim);
+        }
+
+
+        .top-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .icon-btn {
+
+            width: 36px;
+            height: 36px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid var(--border);
+
+            background:
+                var(--panel);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+
+            position: relative;
+
+            transition:
+                transform .15s ease;
+        }
+
+
+        .icon-btn:hover {
+
+            transform:
+                scale(1.08);
+        }
+
+
+        .icon-btn svg {
+
+            width: 16px;
+            height: 16px;
+
+            stroke:
+                var(--accent);
+        }
+
+
+        .icon-sun {
+            display: none;
+        }
+
+
+        html[data-theme="light"] .icon-moon {
+            display: none;
+        }
+
+
+        html[data-theme="light"] .icon-sun {
+            display: block;
+        }
+
+
+        .notif-badge {
+
+            position: absolute;
+
+            top: -4px;
+            right: -4px;
+
+            background:
+                var(--accent);
+
+            color: #fff;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            border-radius: 20px;
+
+            padding:
+                1px 5px;
+
+            min-width: 16px;
+
+            text-align: center;
+        }
+
+
+        .notif-panel {
+
+            display: none;
+
+            position: absolute;
+
+            top: 44px;
+            right: 0;
+
+            width: 230px;
+
+            background:
+                var(--panel);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            padding: 14px;
+
+            box-shadow:
+                var(--glow);
+
+            z-index: 500;
+        }
+
+
+        .notif-panel.open {
+            display: block;
+        }
+
+
+        .notif-panel-title {
+
+            font-weight: 700;
+
+            font-size: 13.5px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .notif-panel-text {
+
+            font-size: 12.5px;
+
+            color:
+                var(--text-dim);
+
+            line-height: 1.5;
+        }
+
+
+        .user-chip {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            background:
+                var(--panel);
+
+            border:
+                1px solid var(--border);
+
+            padding:
+                6px 14px 6px 6px;
+
+            border-radius: 14px;
+        }
+
+
+        .avatar {
+
+            width: 34px;
+            height: 34px;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(135deg,
+                    var(--accent),
+                    var(--accent-2));
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            color: #fff;
+
+            flex-shrink: 0;
+        }
+
+
+        .user-name {
+
+            font-size: 13.5px;
+
+            font-weight: 600;
+        }
+
+
+        /* ============================================================
+           MAIN SCROLL
+        ============================================================ */
+
+        .main-scroll {
+
+            flex: 1;
+
+            overflow-y: auto;
+
+            overflow-x: hidden;
+
+            padding:
+                26px 34px 40px;
+
+            min-width: 0;
+
+            scroll-behavior: smooth;
+        }
+
+
+        .main-scroll::-webkit-scrollbar {
+
+            width: 8px;
+        }
+
+
+        .main-scroll::-webkit-scrollbar-track {
+
+            background:
+                transparent;
+        }
+
+
+        .main-scroll::-webkit-scrollbar-thumb {
+
+            background:
+                rgba(77, 163, 255, .30);
+
+            border-radius:
+                20px;
+        }
+
+
+        .main-scroll::-webkit-scrollbar-thumb:hover {
+
+            background:
+                rgba(77, 163, 255, .55);
+        }
+
+
+        /* ============================================================
+           LESSON HEADER
+        ============================================================ */
+
+        .lesson {
+
+            width: 100%;
+
+            max-width: 1100px;
+
+            margin:
+                0 auto;
+        }
+
+
+        .lesson-header {
+
+            background:
+                linear-gradient(145deg,
+                    var(--panel),
+                    var(--panel-2));
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                20px;
+
+            padding:
+                30px 32px;
+
+            margin-bottom:
+                20px;
+
+            box-shadow:
+                var(--glow);
+        }
+
+
+        .lesson-breadcrumb {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            font-size: 11px;
+
+            letter-spacing:
+                .8px;
+
+            text-transform:
+                uppercase;
+
+            font-weight: 700;
+
+            color:
+                var(--accent);
+
+            background:
+                var(--accent-soft);
+
+            padding:
+                7px 11px;
+
+            border-radius:
+                999px;
+
+            margin-bottom:
+                14px;
+        }
+
+
+        .lesson-header h1 {
+
+            font-size:
+                clamp(28px,
+                    4vw,
+                    42px);
+
+            line-height:
+                1.08;
+
+            margin-bottom:
+                12px;
+
+            color:
+                var(--lesson-heading);
+        }
+
+
+        .lesson-header p {
+
+            max-width:
+                750px;
+
+            color:
+                var(--text-dim);
+
+            line-height:
+                1.7;
+
+            font-size:
+                14px;
+        }
+
+
+        /* ============================================================
+           SECTION INDEX
+        ============================================================ */
+
+        .lesson-index {
+
+            background:
+                var(--lesson-card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                18px;
+
+            padding:
+                22px;
+
+            margin-bottom:
+                20px;
+
+            box-shadow:
+                var(--glow);
+        }
+
+
+        .lesson-index-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-family:
+                'Space Grotesk',
+                sans-serif;
+
+            font-size:
+                16px;
+
+            font-weight:
+                700;
+
+            margin-bottom:
+                16px;
+        }
+
+
+        .lesson-index-title::before {
+
+            content: "";
+
+            width: 4px;
+
+            height: 20px;
+
+            border-radius:
+                999px;
+
+            background:
+                linear-gradient(var(--accent),
+                    var(--accent-2));
+        }
+
+
+        .index-grid {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+        }
+
+
+        .index-link {
+
+            text-decoration: none;
+
+            color:
+                var(--text-dim);
+
+            background:
+                var(--panel-2);
+
+            border:
+                1px solid var(--lesson-line);
+
+            border-radius:
+                10px;
+
+            padding:
+                9px 12px;
+
+            font-size:
+                12px;
+
+            transition:
+                transform .18s ease,
+                color .18s ease,
+                border-color .18s ease,
+                background .18s ease;
+        }
+
+
+        .index-link:hover {
+
+            color:
+                var(--accent);
+
+            border-color:
+                var(--border);
+
+            background:
+                var(--accent-soft);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        /* ============================================================
+           CONTENT SECTIONS
+        ============================================================ */
+
+        .lesson-section {
+
+            background:
+                var(--lesson-card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                18px;
+
+            padding:
+                26px 28px;
+
+            margin-bottom:
+                18px;
+
+            box-shadow:
+                var(--glow);
+
+            min-width: 0;
+        }
+
+
+        .lesson-section>h2 {
+
+            font-size:
+                24px;
+
+            color:
+                var(--lesson-heading);
+
+            margin-bottom:
+                15px;
+
+            line-height:
+                1.2;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .lesson-section>h2::before {
+
+            content: "";
+
+            width: 5px;
+
+            height: 26px;
+
+            border-radius:
+                999px;
+
+            background:
+                var(--accent);
+
+            box-shadow:
+                0 0 14px rgba(77, 163, 255, .45);
+        }
+
+
+        .lesson-section>h3 {
+
+            font-size:
+                18px;
+
+            margin:
+                22px 0 10px;
+
+            color:
+                var(--lesson-heading);
+        }
+
+
+        .lesson-section p {
+
+            color:
+                var(--text-dim);
+
+            line-height:
+                1.75;
+
+            font-size:
+                14px;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .lesson-section em {
+
+            color:
+                var(--accent);
+
+            font-style:
+                normal;
+
+            font-weight:
+                600;
+        }
+
+
+        .lesson-section strong,
+        .lesson-section b {
+
+            color:
+                var(--text);
+        }
+
+
+        /* ============================================================
+           CONCEPT CARDS
+        ============================================================ */
+
+        .concept {
+
+            margin-top:
+                22px;
+
+            padding:
+                22px;
+
+            border-radius:
+                16px;
+
+            background:
+                linear-gradient(145deg,
+                    var(--lesson-card-2),
+                    var(--panel));
+
+            border:
+                1px solid var(--lesson-line);
+        }
+
+
+        .concept h3 {
+
+            font-family:
+                'Space Grotesk',
+                sans-serif;
+
+            color:
+                var(--accent);
+
+            font-size:
+                19px;
+
+            margin-bottom:
+                12px;
+        }
+
+
+        /* ============================================================
+           IMAGES
+        ============================================================ */
+
+        .lesson-image {
+
+            display:
+                block;
+
+            width:
+                min(100%, 720px);
+
+            height:
+                auto;
+
+            margin:
+                20px auto;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                14px;
+
+            background:
+                var(--panel-2);
+
+            box-shadow:
+                0 14px 35px rgba(0, 0, 0, .20);
+
+            object-fit:
+                contain;
+        }
+
+
+        .lesson-image.small {
+
+            width:
+                min(100%, 400px);
+        }
+
+
+        /* ============================================================
+           ACTION DEFINITIONS
+        ============================================================ */
+
+        .action-list {
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            gap:
+                10px;
+
+            margin-top:
+                15px;
+        }
+
+
+        .action-item {
+
+            padding:
+                15px 17px;
+
+            border:
+                1px solid var(--lesson-line);
+
+            border-radius:
+                12px;
+
+            background:
+                var(--lesson-card-2);
+        }
+
+
+        .action-name {
+
+            display:
+                inline-block;
+
+            color:
+                var(--accent);
+
+            font-weight:
+                700;
+
+            font-family:
+                'Space Grotesk',
+                sans-serif;
+
+            margin-bottom:
+                5px;
+        }
+
+
+        .action-item p {
+
+            margin:
+                0;
+
+            font-size:
+                13.5px;
+        }
+
+
+        /* ============================================================
+           TABLES
+        ============================================================ */
+
+        .table-wrap {
+
+            width:
+                100%;
+
+            overflow-x:
+                auto;
+
+            margin:
+                18px 0;
+
+            border:
+                1px solid var(--lesson-line);
+
+            border-radius:
+                14px;
+
+            -webkit-overflow-scrolling:
+                touch;
+        }
+
+
+        .lesson-table {
+
+            width:
+                100%;
+
+            min-width:
+                580px;
+
+            border-collapse:
+                collapse;
+        }
+
+
+        .lesson-table th {
+
+            background:
+                var(--lesson-table-head);
+
+            color:
+                var(--accent);
+
+            font-family:
+                'Space Grotesk',
+                sans-serif;
+
+            font-size:
+                13px;
+
+            text-align:
+                left;
+
+            padding:
+                14px 16px;
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+
+        .lesson-table td {
+
+            padding:
+                14px 16px;
+
+            color:
+                var(--text-dim);
+
+            font-size:
+                13px;
+
+            line-height:
+                1.55;
+
+            border-bottom:
+                1px solid var(--lesson-line);
+
+            background:
+                var(--lesson-table-row);
+        }
+
+
+        .lesson-table tr:last-child td {
+            border-bottom: none;
+        }
+
+
+        .lesson-table td:first-child {
+
+            color:
+                var(--text);
+
+            font-weight:
+                600;
+
+            width:
+                28%;
+        }
+
+
+        .lesson-table tr:hover td {
+
+            background:
+                var(--accent-soft);
+        }
+
+
+        /* ============================================================
+           NOTE BOX
+        ============================================================ */
+
+        .lesson-note {
+
+            padding:
+                18px 20px;
+
+            border:
+                1px solid var(--lesson-note-border);
+
+            border-left:
+                4px solid var(--topics);
+
+            background:
+                var(--lesson-note);
+
+            border-radius:
+                13px;
+
+            margin:
+                20px 0;
+        }
+
+
+        .lesson-note strong {
+
+            color:
+                var(--topics);
+
+            font-family:
+                'Space Grotesk',
+                sans-serif;
+        }
+
+
+        .lesson-note p {
+
+            margin:
+                6px 0 0;
+
+            color:
+                var(--text-dim);
+        }
+
+
+        /* ============================================================
+           LISTS
+        ============================================================ */
+
+        .lesson-section ul {
+
+            margin:
+                10px 0 10px 20px;
+        }
+
+
+        .lesson-section li {
+
+            color:
+                var(--text-dim);
+
+            margin-bottom:
+                9px;
+
+            padding-left:
+                4px;
+
+            line-height:
+                1.6;
+        }
+
+
+        .lesson-section li::marker {
+
+            color:
+                var(--accent);
+        }
+
+
+        /* ============================================================
+           QUIZ CTA
+        ============================================================ */
+
+        .quiz-card {
+
+            background:
+                linear-gradient(145deg,
+                    rgba(77, 163, 255, .16),
+                    var(--panel));
+
+            border:
+                1px solid rgba(77, 163, 255, .38);
+
+            border-radius:
+                20px;
+
+            padding:
+                28px;
+
+            text-align:
+                center;
+
+            box-shadow:
+                0 18px 45px rgba(77, 163, 255, .10);
+
+            margin-top:
+                22px;
+        }
+
+
+        .quiz-card h2 {
+
+            font-size:
+                23px;
+
+            margin-bottom:
+                10px;
+        }
+
+
+        .quiz-card p {
+
+            max-width:
+                650px;
+
+            margin:
+                0 auto 20px;
+
+            color:
+                var(--text-dim);
+
+            line-height:
+                1.6;
+
+            font-size:
+                14px;
+        }
+
+
+        .quiz-button {
+
+            border:
+                none;
+
+            background:
+                linear-gradient(135deg,
+                    var(--accent),
+                    var(--accent-2));
+
+            color:
+                #fff;
+
+            padding:
+                13px 26px;
+
+            border-radius:
+                999px;
+
+            font-family:
+                'Inter',
+                sans-serif;
+
+            font-size:
+                14px;
+
+            font-weight:
+                700;
+
+            cursor:
+                pointer;
+
+            box-shadow:
+                0 12px 28px rgba(77, 163, 255, .30);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                filter .2s ease;
+        }
+
+
+        .quiz-button:hover {
+
+            transform:
+                translateY(-3px);
+
+            filter:
+                brightness(1.08);
+
+            box-shadow:
+                0 16px 32px rgba(77, 163, 255, .40);
+        }
+
+
+        /* ============================================================
+           FOOTER
+        ============================================================ */
+
+        .lesson-footer {
+
+            text-align:
+                center;
+
+            padding:
+                28px 0 10px;
+
+            color:
+                var(--text-dim);
+
+            font-size:
+                11px;
+
+            line-height:
+                1.6;
+        }
+
+
+        /* ============================================================
+           MOBILE SIDEBAR
+        ============================================================ */
+
+        .mobile-menu-btn,
+        .sidebar-overlay {
+            display: none;
+        }
+
+
+        @media (max-width: 900px) {
+
+            html,
+            body {
+
+                width:
+                    100%;
+
+                max-width:
+                    100%;
+
+                overflow:
+                    hidden;
+            }
+
+
+            body {
+
+                display:
+                    block;
+
+                height:
+                    100dvh;
+
+                min-height:
+                    100vh;
+            }
+
+
+            .sidebar {
+
+                position:
+                    fixed;
+
+                top:
+                    0;
+
+                left:
+                    0;
+
+                width:
+                    min(290px, 86vw);
+
+                height:
+                    100dvh;
+
+                z-index:
+                    1000;
+
+                transform:
+                    translateX(-105%);
+
+                transition:
+                    transform .25s ease;
+
+                box-shadow:
+                    12px 0 35px rgba(0, 0, 0, .30);
+
+                overflow-y:
+                    auto;
+            }
+
+
+            .sidebar.collapsed {
+
+                width:
+                    min(290px, 86vw);
+
+                transform:
+                    translateX(-105%);
+            }
+
+
+            .sidebar.mobile-open,
+            .sidebar.collapsed.mobile-open {
+
+                transform:
+                    translateX(0);
+            }
+
+
+            .sidebar.collapsed .nav-label,
+            .sidebar.collapsed .brand-name,
+            .sidebar.collapsed .sign-out-label {
+
+                display:
+                    inline;
+            }
+
+
+            .sidebar.collapsed .brand,
+            .sidebar.collapsed .nav-item {
+
+                justify-content:
+                    flex-start;
+            }
+
+
+            .collapse-btn {
+                display:
+                    none;
+            }
+
+
+            .mobile-menu-btn {
+
+                position:
+                    fixed;
+
+                top:
+                    max(12px,
+                        env(safe-area-inset-top));
+
+                left:
+                    12px;
+
+                width:
+                    46px;
+
+                height:
+                    46px;
+
+                padding:
+                    0;
+
+                border:
+                    1px solid var(--border);
+
+                border-radius:
+                    13px;
+
+                background:
+                    var(--panel);
+
+                color:
+                    var(--text);
+
+                display:
+                    flex;
+
+                align-items:
+                    center;
+
+                justify-content:
+                    center;
+
+                cursor:
+                    pointer;
+
+                z-index:
+                    1100;
+
+                box-shadow:
+                    var(--glow);
+            }
+
+
+            .mobile-menu-btn svg {
+
+                width:
+                    23px;
+
+                height:
+                    23px;
+
+                stroke:
+                    currentColor;
+            }
+
+
+            .sidebar-overlay {
+
+                position:
+                    fixed;
+
+                inset:
+                    0;
+
+                z-index:
+                    950;
+
+                background:
+                    rgba(0, 0, 0, .48);
+
+                opacity:
+                    0;
+
+                pointer-events:
+                    none;
+
+                display:
+                    block;
+
+                transition:
+                    opacity .25s ease;
+            }
+
+
+            .sidebar-overlay.open {
+
+                opacity:
+                    1;
+
+                pointer-events:
+                    auto;
+            }
+
+
+            .main {
+
+                width:
+                    100%;
+
+                max-width:
+                    100%;
+
+                height:
+                    100dvh;
+            }
+
+
+            .top-row {
+
+                width:
+                    100%;
+
+                padding:
+                    16px 18px 14px 72px;
+
+                min-height:
+                    70px;
+            }
+
+
+            .main-scroll {
+
+                padding:
+                    20px 18px 28px;
+
+                overflow-x:
+                    hidden;
+            }
+
+
+            .lesson-header {
+
+                padding:
+                    24px 20px;
+            }
+
+
+            .lesson-header h1 {
+
+                font-size:
+                    clamp(25px,
+                        7vw,
+                        34px);
+            }
+
+
+            .lesson-section {
+
+                padding:
+                    22px 18px;
+            }
+
+
+            .lesson-section>h2 {
+
+                font-size:
+                    21px;
+            }
+
+
+            .concept {
+
+                padding:
+                    18px 16px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .top-row {
+
+                align-items:
+                    center;
+
+                flex-wrap:
+                    nowrap;
+
+                padding-left:
+                    58px;
+
+                padding-right:
+                    12px;
+            }
+
+
+            .top-row>div:first-child {
+
+                min-width:
+                    0;
+
+                flex:
+                    1 1 auto;
+            }
+
+
+            .top-row .eyebrow,
+            .top-row .page-title,
+            .top-row .greeting {
+
+                white-space:
+                    nowrap;
+
+                overflow:
+                    hidden;
+
+                text-overflow:
+                    ellipsis;
+            }
+
+
+            .top-actions {
+
+                flex:
+                    0 0 auto;
+
+                gap:
+                    6px;
+            }
+
+
+            .user-chip {
+
+                padding-right:
+                    8px;
+            }
+
+
+            .user-name {
+
+                max-width:
+                    115px;
+
+                overflow:
+                    hidden;
+
+                text-overflow:
+                    ellipsis;
+
+                white-space:
+                    nowrap;
+            }
+
+
+            .main-scroll {
+
+                padding:
+                    16px 12px 24px;
+            }
+
+
+            .lesson-index {
+
+                padding:
+                    17px;
+            }
+
+
+            .index-grid {
+
+                display:
+                    grid;
+
+                grid-template-columns:
+                    repeat(1,
+                        minmax(0, 1fr));
+            }
+
+
+            .index-link {
+
+                width:
+                    100%;
+            }
+
+
+            .lesson-section {
+
+                border-radius:
+                    15px;
+
+                padding:
+                    20px 16px;
+            }
+
+
+            .lesson-header {
+
+                border-radius:
+                    16px;
+
+                padding:
+                    22px 18px;
+            }
+
+
+            .lesson-header p,
+            .lesson-section p {
+
+                font-size:
+                    13.5px;
+            }
+
+
+            .lesson-table {
+
+                min-width:
+                    540px;
+            }
+
+
+            .quiz-card {
+
+                padding:
+                    22px 17px;
+            }
+
+
+            .quiz-button {
+
+                width:
+                    100%;
+            }
+
+        }
+
+
+        /* ============================================================
+           REDUCED MOTION
+        ============================================================ */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+
+                scroll-behavior:
+                    auto !important;
+
+                transition:
+                    none !important;
+            }
+
+        }
+    </style>
+
+
+    <script>
+
+        /* ============================================================
+           APPLICATION INITIALISATION
+        ============================================================ */
+
+        window.addEventListener("DOMContentLoaded", function () {
+
+            const settings = {
+
+                studentName: "Ssemmanda Isaac",
+
+                firstName: "Ssemmanda",
+
+                notifications: 0
+
+            };
+
+
+            const userName =
+                document.getElementById(
+                    "userNameLabel"
+                );
+
+            const avatar =
+                document.getElementById(
+                    "userAvatar"
+                );
+
+            const greeting =
+                document.getElementById(
+                    "greetingText"
+                );
+
+            const notifText =
+                document.getElementById(
+                    "notifPanelText"
+                );
+
+
+            if (userName) {
+                userName.textContent =
+                    settings.studentName;
+            }
+
+
+            if (avatar) {
+                avatar.textContent = "🤴";
+            }
+
+
+            if (greeting) {
+                greeting.textContent =
+                    "Good evening, " +
+                    settings.firstName +
+                    "!";
+            }
+
+
+            if (notifText) {
+
+                notifText.textContent =
+                    settings.notifications === 0
+                        ? "You have no new notifications."
+                        : "You have " +
+                        settings.notifications +
+                        " unread notifications.";
+
+            }
+
+
+            /* ========================================================
+               NOTIFICATIONS
+            ======================================================== */
+
+            const notifBtn =
+                document.getElementById(
+                    "notifBtn"
+                );
+
+            const notifPanel =
+                document.getElementById(
+                    "notifPanel"
+                );
+
+
+            if (notifBtn && notifPanel) {
+
+                notifBtn.addEventListener(
+                    "click",
+                    function (event) {
+
+                        event.stopPropagation();
+
+                        notifPanel.classList.toggle(
+                            "open"
+                        );
+
+                    }
+                );
+
+            }
+
+
+            document.addEventListener(
+                "click",
+                function (event) {
+
+                    if (
+                        notifPanel &&
+                        !notifPanel.contains(event.target) &&
+                        !notifBtn.contains(event.target)
+                    ) {
+
+                        notifPanel.classList.remove(
+                            "open"
+                        );
+
+                    }
+
+                }
+            );
+
+
+            /* ========================================================
+               THEME TOGGLE
+            ======================================================== */
+
+            const themeBtn =
+                document.getElementById(
+                    "themeBtn"
+                );
+
+
+            if (themeBtn) {
+
+                themeBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        const html =
+                            document.documentElement;
+
+                        if (
+                            html.getAttribute(
+                                "data-theme"
+                            ) === "light"
+                        ) {
+
+                            html.removeAttribute(
+                                "data-theme"
+                            );
+
+                        } else {
+
+                            html.setAttribute(
+                                "data-theme",
+                                "light"
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            /* ========================================================
+               DESKTOP SIDEBAR COLLAPSE
+            ======================================================== */
+
+            const collapseBtn =
+                document.getElementById(
+                    "collapseBtn"
+                );
+
+            const sidebar =
+                document.getElementById(
+                    "sidebar"
+                );
+
+
+            if (collapseBtn && sidebar) {
+
+                collapseBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        sidebar.classList.toggle(
+                            "collapsed"
+                        );
+
+                    }
+                );
+
+            }
+
+        });
+
+    </script>
+
+</head>
+
+
+<body>
+
+    <!-- ============================================================
+         MOBILE MENU
+    ============================================================ -->
+
+    <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open navigation menu"
+        aria-controls="sidebar" aria-expanded="false">
+
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+
+            <line x1="4" y1="6" x2="20" y2="6"></line>
+
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+
+            <line x1="4" y1="18" x2="20" y2="18"></line>
+
+        </svg>
+
+    </button>
+
+
+    <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true">
+    </div>
+
+
+    <div class="bg-circle c1"></div>
+    <div class="bg-circle c2"></div>
+
+
+    <!-- ============================================================
+         SIDEBAR
+    ============================================================ -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+
+            <img src="../../../../IMAGES/favicno1.png" class="logo-dark" alt="ULearn">
+
+            <img src="../../../../IMAGES/favicno.png" class="logo-light" alt="ULearn">
+
+            <span class="brand-name">
+                ULearn.com
+            </span>
+
+
+            <button class="collapse-btn" id="collapseBtn" title="Collapse menu">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+
+                    <path d="M15 6l-6 6 6 6"></path>
+
+                </svg>
+
+            </button>
+
+        </div>
+
+
+        <nav class="nav">
+
+            <a class="nav-item active" title="Dashboard" href="../../../DASHBOARD/dashboard.html">
+                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                        <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                        <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+                        <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+                    </svg></span>
+                <span class="nav-label">Dashboard</span>
+            </a>
+
+
+            <a class="nav-item topics active" title="Topics" href="../../../DASHBOARD/topics.html">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+
+                        <path d="M9 18h6"></path>
+
+                        <path d="M10 22h4"></path>
+
+                        <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"></path>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-label">
+                    Topics
+                </span>
+
+            </a>
+
+
+            <a class="nav-item quizzes" title="Quizzes" href="../../../DASHBOARD/quizes.html">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+
+                        <circle cx="12" cy="12" r="9"></circle>
+
+                        <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2-3 4"></path>
+
+                        <path d="M12 17h.01"></path>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-label">
+                    Quizzes
+                </span>
+
+            </a>
+
+
+            <a class="nav-item tutor" title="AI Tutor" href="../../../DASHBOARD/Tutor.html">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+
+                        <rect x="4" y="7" width="16" height="12" rx="3">
+                        </rect>
+
+                        <path d="M12 7V3"></path>
+
+                        <circle cx="9" cy="13" r="1.2" fill="currentColor" stroke="none">
+                        </circle>
+
+                        <circle cx="15" cy="13" r="1.2" fill="currentColor" stroke="none">
+                        </circle>
+
+                        <path d="M9 17h6"></path>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-label">
+                    AI Tutor
+                </span>
+
+            </a>
+
+
+            <a class="nav-item library" title="Library" href="../../../DASHBOARD/library.html">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+
+                        <path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5a2.5 2.5 0 0 0 0 5H20"></path>
+
+                        <path d="M4 4.5v15A2.5 2.5 0 0 0 6.5 22"></path>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-label">
+                    Library
+                </span>
+
+            </a>
+
+
+            <a class="nav-item connect" title="Connect" href="../../../DASHBOARD/connect.html">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+
+                        <polygon points="6.5 6.5 17.5 17.5 12 23 12 1 17.5 6.5 6.5 17.5"></polygon>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-label">
+                    Connect
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <button class="sign-out" title="Sign Out of your Account">
+
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+
+                <path d="M16 17l5-5-5-5"></path>
+
+                <path d="M21 12H9"></path>
+
+            </svg>
+
+            <span class="sign-out-label">
+                Sign out
+            </span>
+
+        </button>
+
+    </aside>
+
+
+    <!-- ============================================================
+         MAIN
+    ============================================================ -->
+
+    <main class="main">
+
+
+        <!-- ========================================================
+             TOP BAR
+        ======================================================== -->
+
+        <header class="top-row">
+
+            <div>
+
+                <div class="eyebrow">
+                    ULearn.com Century Update © 2026 SSEMMANDA ISAAC
+                </div>
+
+                <div class="page-title">
+                    Topics / Senior One / ICT
+                </div>
+
+                <div class="greeting" id="greetingText">
+
+                    Good evening, Ssemmanda!
+
+                </div>
+
+            </div>
+
+
+            <div class="top-actions">
+
+                <!-- THEME -->
+
+                <button class="icon-btn" id="themeBtn" title="Switch theme">
+
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+
+                        <path d="M21 12.5A9 9 0 1 1 11.5 3a7 7 0 0 0 9.5 9.5Z"></path>
+
+                    </svg>
+
+
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+
+                        <circle cx="12" cy="12" r="4">
+                        </circle>
+
+                        <path
+                            d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4">
+                        </path>
+
+                    </svg>
+
+                </button>
+
+
+                <!-- NOTIFICATIONS -->
+
+                <div style="position:relative;">
+
+                    <button class="icon-btn" id="notifBtn" title="Notifications">
+
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+
+                            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
+
+                            <path d="M13.7 21a2 2 0 0 1-3.4 0"></path>
+
+                        </svg>
+
+                        <span class="notif-badge" id="notifCount">
+
+                            0
+
+                        </span>
+
+                    </button>
+
+
+                    <div class="notif-panel" id="notifPanel">
+
+                        <div class="notif-panel-title">
+                            Notifications
+                        </div>
+
+                        <div class="notif-panel-text" id="notifPanelText">
+
+                            You have no new notifications.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- USER -->
+
+                <div class="user-chip">
+
+                    <div class="avatar" id="userAvatar">
+
+                        🤴
+
+                    </div>
+
+                    <div>
+
+                        <div class="user-name" id="userNameLabel">
+
+                            Ssemmanda Isaac
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ========================================================
+             SCROLLING LESSON AREA
+        ======================================================== -->
+
+        <div class="main-scroll">
+
+
+            <article class="lesson">
+
+
+                <!-- ==================================================
+                     LESSON HEADER
+                ================================================== -->
+
+                <section class="lesson-header">
+
+                    <div class="lesson-breadcrumb">
+                        ICT • SENIOR ONE
+                    </div>
+
+                    <h1>
+                        File and Folder Management
+                    </h1>
+
+                    <p>
+                        In this topic, you will look at the basics
+                        of file and folder management. You will learn
+                        how files and folders are created, manipulated,
+                        organised and accessed on a computer.
+                    </p>
+
+                </section>
+
+
+                <!-- ==================================================
+                     IN THIS SECTION
+                ================================================== -->
+
+                <section class="lesson-index" id="contents">
+
+                    <div class="lesson-index-title">
+                        In this section
+                    </div>
+
+
+                    <div class="index-grid">
+
+                        <a class="index-link" href="#creating-folders">
+
+                            Creating folders
+
+                        </a>
+
+                        <a class="index-link" href="#manipulating-folders">
+
+                            Manipulating folders
+
+                        </a>
+
+                        <a class="index-link" href="#accessing-folders">
+
+                            Folder Management
+
+                        </a>
+
+                        <a class="index-link" href="#uses-folders">
+
+                            Uses of folders
+
+                        </a>
+
+                        <a class="index-link" href="#creating-files">
+
+                            Creating files
+
+                        </a>
+
+                        <a class="index-link" href="#identifying-files">
+
+                            Identifying files
+
+                        </a>
+
+                        <a class="index-link" href="#shortcuts">
+
+                            Keyboard shortcuts
+
+                        </a>
+
+                        <a class="index-link" href="#quiz">
+
+                            Take the quiz
+
+                        </a>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ==================================================
+                     INTRODUCTION
+                ================================================== -->
+
+                <section class="lesson-section">
+
+                    <h2>
+                        Getting Started
+                    </h2>
+
+                    <p>
+                        In this topic, you will look at the basics
+                        of file and folder management, but first,
+                        let's start by defining some of the most
+                        relevant terminologies as shown below.
+                    </p>
+
+
+                    <div class="table-wrap">
+
+                        <table class="lesson-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Terminology
+                                    </th>
+
+                                    <th>
+                                        Definition
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>Folder</td>
+
+                                    <td>
+                                        A virtual container in which
+                                        files on a computer are stored.
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>File</td>
+
+                                    <td>
+                                        A virtual item that is stored
+                                        on a computer.
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Icon</td>
+
+                                    <td>
+                                        A graphical representation
+                                        of a program or command on
+                                        a computer.
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Sub-folder</td>
+
+                                    <td>
+                                        A folder that is placed in
+                                        or is a child of another folder.
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Copy</td>
+
+                                    <td>
+                                        To duplicate an item on a
+                                        computer and place it on the
+                                        system's clipboard.
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Cut</td>
+
+                                    <td>
+                                        To move an element from its
+                                        original location to the
+                                        clipboard or another location.
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Paste</td>
+
+                                    <td>
+                                        To move an item placed on the
+                                        clipboard to a new location.
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Clipboard</td>
+
+                                    <td>
+                                        An area in computer memory
+                                        where items that have been
+                                        copied or cut are placed for
+                                        future use or reference.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ==================================================
+                     FOLDERS
+                ================================================== -->
+
+                <section class="lesson-section" id="folders">
+
+                    <h2>
+                        Folders
+                    </h2>
+
+                    <p>
+                        As stated above, a folder is a virtual
+                        container in which files on a computer
+                        are stored.
+                    </p>
+
+                    <p>
+                        In the world of ICT, every advanced computer
+                        user applies their knowledge of files and
+                        folders to arrange their work, protect it,
+                        ease file access and significantly boost
+                        productivity.
+                    </p>
+
+                    <p>
+                        In the same way, different computer programs
+                        use the principles of file and folder
+                        management to safely access, store and make
+                        use of their source files.
+                    </p>
+
+
+                    <!-- CREATING FOLDER -->
+
+                    <div class="concept" id="creating-folders">
+
+                        <h3>
+                            Creating a Folder
+                        </h3>
+
+                        <p>
+                            A folder can be created using three
+                            distinct ways. The most common and
+                            easiest way of creating a folder is by
+                            navigating to the folder's new location
+                            using <em>File Explorer</em>.
+                        </p>
+
+                        <p>
+                            To open File Explorer, use the keyboard
+                            combination <b>Windows + E</b> or simply
+                            type <em>File Explorer</em> in your
+                            Windows search box.
+                        </p>
+
+
+                        <img class="lesson-image" src="../../../../IMAGES/search.png.jpg"
+                            alt="Searching for File Explorer using Windows search">
+
+
+                        <p>
+                            Once the window is open, navigate to the
+                            preferred location of the folder and use
+                            the "New folder" option in the Home tab.
+                        </p>
+
+
+                        <img class="lesson-image" src="../../../../IMAGES/create.jpg" alt="Creating a new folder">
+
+
+                        <p>
+                            Once this has been done, you can use the
+                            newly created folder to store and organise
+                            your files.
+                        </p>
+
+                    </div>
+
+
+                    <!-- MANIPULATING -->
+
+                    <div class="concept" id="manipulating-folders">
+
+                        <h3>
+                            Manipulating Folders
+                        </h3>
+
+                        <p>
+                            Once a folder has been created, various
+                            actions can be taken upon it. In File
+                            Explorer, these actions are reflected in
+                            the ribbon and become active once the
+                            folder has been selected.
+                        </p>
+
+
+                        <img class="lesson-image" src="../../../../IMAGES/actions.jpg"
+                            alt="Folder actions in File Explorer">
+
+
+                        <h3>
+                            Folder Actions
+                        </h3>
+
+
+                        <div class="action-list">
+
+
+                            <div class="action-item">
+
+                                <span class="action-name">
+                                    Opening
+                                </span>
+
+                                <p>
+                                    This refers to the process of
+                                    viewing the contents of the folder.
+                                </p>
+
+                            </div>
+
+
+                            <div class="action-item">
+
+                                <span class="action-name">
+                                    Cutting
+                                </span>
+
+                                <p>
+                                    This is the moving of a folder from
+                                    its original location to another
+                                    location or to the system's
+                                    clipboard.
+                                </p>
+
+                            </div>
+
+
+                            <div class="action-item">
+
+                                <span class="action-name">
+                                    Copying
+                                </span>
+
+                                <p>
+                                    This involves copying an item from
+                                    its original position to the
+                                    system's clipboard.
+                                </p>
+
+                            </div>
+
+
+                            <div class="action-item">
+
+                                <span class="action-name">
+                                    Renaming
+                                </span>
+
+                                <p>
+                                    This involves modifying the name
+                                    of the folder.
+                                </p>
+
+                            </div>
+
+
+                            <div class="action-item">
+
+                                <span class="action-name">
+                                    Deleting
+                                </span>
+
+                                <p>
+                                    This is moving the folder to the
+                                    system's recycle bin or permanently
+                                    erasing it from the computer.
+                                </p>
+
+                            </div>
+
+
+                            <div class="action-item">
+
+                                <span class="action-name">
+                                    Content Specification
+                                </span>
+
+                                <p>
+                                    This is the specification of the
+                                    type of items which will be stored
+                                    in the folder. This is done through
+                                    the folder's properties.
+                                </p>
+
+                            </div>
+
+
+                            <div class="action-item">
+
+                                <span class="action-name">
+                                    Compressing and Zipping
+                                </span>
+
+                                <p>
+                                    This is the process of making the
+                                    folder's contents occupy less disk
+                                    space to ease storage and sharing.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <img class="lesson-image" src="../../../../IMAGES/properties.jpg" alt="Folder properties">
+
+
+                        <img class="lesson-image" src="../../../../IMAGES/more.jpg" alt="Folder compression operations">
+
+                    </div>
+
+
+                    <!-- ACCESSING -->
+
+                    <div class="concept" id="accessing-folders">
+
+                        <h3>
+                            Accessing Folders
+                        </h3>
+
+                        <p>
+                            To access a folder, a person must know
+                            the location of the folder in the local
+                            file system.
+                        </p>
+
+                        <p>
+                            This is done with the help of a
+                            <em>File Path</em>, which is a tree-like
+                            guide through various directories and
+                            sub-folders to where the folder is located.
+                        </p>
+
+
+                        <img class="lesson-image" src="../../../../IMAGES/blocks.png" alt="Anatomy of a file path">
+
+                    </div>
+
+
+                    <!-- USES -->
+
+                    <div class="concept" id="uses-folders">
+
+                        <h3>
+                            Uses of Folders
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                For storing files.
+                            </li>
+
+                            <li>
+                                For separating and arranging files
+                                to prevent disorganisation and
+                                confusion.
+                            </li>
+
+                            <li>
+                                They help to ease file access.
+                            </li>
+
+                            <li>
+                                For protecting files from
+                                unauthorised access.
+                            </li>
+
+                            <li>
+                                For backing up files.
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ==================================================
+                     FILES
+                ================================================== -->
+
+                <section class="lesson-section" id="files">
+
+                    <h2>
+                        Files
+                    </h2>
+
+                    <p>
+                        A file is a virtual item that is stored on
+                        a computer. Basically, the normal usage and
+                        running of a computer depends on the
+                        manipulation of folders needed by the user
+                        and the manipulation of different files
+                        needed by both the computer's operating
+                        system and installed software.
+                    </p>
+
+                    <p>
+                        A file can be an image, a document, a
+                        spreadsheet, a code file, etc.
+                    </p>
+
+
+                    <div class="lesson-note">
+
+                        <strong>
+                            Note
+                        </strong>
+
+                        <p>
+                            The process of manipulating and accessing
+                            files using File Explorer is generally
+                            the same as that for folders. The
+                            following sections focus on the important
+                            file-specific concepts.
+                        </p>
+
+                    </div>
+
+
+                    <!-- CREATING FILES -->
+
+                    <div class="concept" id="creating-files">
+
+                        <h3>
+                            Creating Files
+                        </h3>
+
+                        <p>
+                            A file can be created by navigating to
+                            the desired location using File Explorer
+                            and selecting the <em>New Item</em>
+                            option from the ribbon and selecting the
+                            desired file type.
+                        </p>
+
+                        <p>
+                            Alternatively, right-click in the body of
+                            the desired location and select the
+                            <em>New</em> option from the pop-up menu.
+                        </p>
+
+
+                        <img class="lesson-image small" src="../../../../IMAGES/dsk.jpg"
+                            alt="Using the pop-up menu to create a new file">
+
+                    </div>
+
+
+                    <!-- IDENTIFYING FILES -->
+
+                    <div class="concept" id="identifying-files">
+
+                        <h3>
+                            Identifying Files
+                        </h3>
+
+                        <p>
+                            The process of identifying files is made
+                            easier by the use of file extensions.
+                        </p>
+
+                        <p>
+                            A file extension is an addition to the
+                            file name that identifies different types
+                            of files, their uses and the applications
+                            that can be used to open them.
+                        </p>
+
+                        <p>
+                            To view the different extensions on your
+                            device, search and open Command Prompt
+                            and type <em>assoc</em> on the command
+                            line.
+                        </p>
+
+
+                        <img class="lesson-image" src="../../../../IMAGES/cmd.jpg"
+                            alt="Viewing file extensions using Command Prompt">
+
+                    </div>
+
+
+                    <!-- SHORTCUTS -->
+
+                    <div class="concept" id="shortcuts">
+
+                        <h3>
+                            Useful Keyboard Shortcuts
+                        </h3>
+
+
+                        <div class="table-wrap">
+
+                            <table class="lesson-table">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Action
+                                        </th>
+
+                                        <th>
+                                            Keyboard Shortcut
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    <tr>
+
+                                        <td>
+                                            Copying
+                                        </td>
+
+                                        <td>
+                                            Ctrl + C
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            Pasting
+                                        </td>
+
+                                        <td>
+                                            Ctrl + V
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            Cutting
+                                        </td>
+
+                                        <td>
+                                            Ctrl + X
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            Accessing the system clipboard
+                                        </td>
+
+                                        <td>
+                                            Windows + V
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            Creating a new folder
+                                        </td>
+
+                                        <td>
+                                            Ctrl + Shift + N
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            Opening File Explorer
+                                        </td>
+
+                                        <td>
+                                            Windows + E
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            Renaming a folder/file
+                                        </td>
+
+                                        <td>
+                                            F2
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            Deleting
+                                        </td>
+
+                                        <td>
+                                            Ctrl + D
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ==================================================
+                     QUIZ
+                ================================================== -->
+
+                <section class="quiz-card" id="quiz">
+
+                    <h2>
+                        Topic Complete 🎉
+                    </h2>
+
+                    <p>
+                        Congratulations! You have made it through
+                        this topic. Test what you have learned by
+                        taking the File and Folder Management quiz.
+                    </p>
+
+                    <a href="../../../QUIZES/S.1/ICT/filequiz.html" title="Take the File and Folder Management quiz">
+                        <button class="quiz-button" onclick="window.open('Filequiz.html')">
+
+                            Take Quiz
+
+                        </button>
+                    </a>
+                </section>
+
+
+                <!-- ==================================================
+                     FOOTER
+                ================================================== -->
+
+                <footer class="lesson-footer">
+
+                    © 2026
+                    <br>
+                    SSEMMANDA ISAAC
+                    <br>
+                    ULearn.com
+
+                </footer>
+
+
+            </article>
+
+        </div>
+
+    </main>
+
+
+    <script src="../../../../Js/framework.js"></script>
+
+</body>
+
+</html>

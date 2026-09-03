@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File and Folder Management Quiz || U Learn.com</title>
+    <link rel="stylesheet" href="../CSS/Main.css">
+    <link rel="stylesheet" href="../CSS/fq.css">
+    <link rel="stylesheet" href="../CSS/devblock.css">
+    <script src="../Js/fq.js"></script>
+    <link rel="shortcut icon" href="../IMAGES/favicno.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="devblock">
+            <img src="../IMAGES/logo.png" id = "toplogo">
+                <b style="margin-top: 100px">Device Width Not Supported</b>
+                <p >This website is designed for learning on laptops and desktop computers.
+            Please access it using a larger screen or maximise the tab in which it is open.
+        </p>
+                <div id="rights" style="text-align: center; margin-top: 200px">
+                    ©2026 SSEMMANDA ISAAC <br>All rights Reserved
+        
+                </div>
+        </div>
+    <div id="content">
+        <div id="top">
+            <div id="logo">
+                <img src="../IMAGES/logo.png" alt="Our Logo">
+            </div>
+            <div id="navigation">
+                <a href="../index.html">
+                    <button class="other fresh button" title="Home">Home
+                    </button>
+                </a>
+                <a href="Topics.html">
+                    <button class="other fresh button" title="Topics">Topics
+                    </button>
+                </a>
+                <a href="Quizes.html">
+                    <button class="thisPage fresh button" title="Quizes">Quizes
+                    </button>
+                </a>
+                <a href="Help and Support.html">
+                    <button class="other fresh button" title="Help and Support">Help and Support
+                    </button>
+                </a>
+            </div>
+        </div>
+        <script>
+            //This application is property of Ssemmanda Isaac
+window.onload = init;
+function init() {
+    //random background picking app
+    var $guy = document.getElementById('questions');
+    var $bg_array = ["#dff5dc", "#dce9f5", "#dfdcf5", "repeating-linear-gradient(133deg, #dfdcf5, #dce9f5, #dff5dc 100px)", "linear-gradient(133deg, #dfdcf5, #dce9f5, #dff5dc 3000px)"];
+    var $bg_index = Math.floor(Math.random() * $bg_array.length);
+    var $color = $bg_array[$bg_index];
+    $guy.style.background = $color;
+    //creating the welcoming balloon
+    //the blur on the screen
+    let $overlay = document.createElement('div');
+    $overlay.id = "cover";
+    document.body.appendChild($overlay);
+    //generating the pop-up that contains the input fields
+    let $popUp = document.createElement('div');
+    $popUp.id = "pop"
+    let $pophead = document.createElement('h1');
+    //the heading 
+    $pophead.innerHTML = "Welcome to the File and folder management quiz!";
+    var $text = document.createElement('p');
+    $text.innerHTML = "Please enter your name in the field below to continue:";
+    let scar = document.createElement('input');
+    //the name input field
+    scar.type = "search";
+    scar.placeholder = "Please enter your name";
+    scar.spellcheck = false;
+    scar.title = "Enter your name";
+    scar.id = "scar";
+    let rhead = document.createElement('h2');
+    //instrcutions
+    rhead.innerHTML = "Instructions";
+    const rules = document.createElement('ul');
+    rules.innerHTML = "<li> Answer all questions </li> " + "<li> Please select one option from those selected or you will loose marks </li>" + "<li> Be honest to yourself(For your own good)</li?\>";
+    const $readyButton = document.createElement('button');
+    $readyButton.innerHTML = "I'm ready";
+    $readyButton.title = "Proceed to the quiz";
+    $readyButton.onclick = degen;
+    $readyButton.id = "go";
+    //adding the new elements to the dom in their preceeding order
+    $popUp.appendChild($pophead);
+    $popUp.appendChild($text);
+    $popUp.appendChild(scar);
+    $popUp.appendChild(rhead);
+    $popUp.appendChild(rules);
+    $popUp.appendChild($readyButton);
+    $overlay.appendChild($popUp);
+    //passing a function to the process button in the html doc
+    const prc_results = document.getElementById('process');
+    prc_results.onclick = process_results;
+}
+function degen() {
+    //this removes the elemenst from the dom and allows the user to edit the quiz
+    var input = document.getElementById('scar');
+    var $name = input.value;
+    //this condition checks whether the user name entered matches the required specifics(between 5 and 10 characters long)
+    if ($name.length >= 5 && $name.length <= 10) {
+        localStorage.setItem('userName', $name);
+        console.log('✔ Memory set successfully');
+        //removes the covering part of the dom created above
+        var elem = document.getElementById('cover');
+        document.body.removeChild(elem);
+        console.log('No errors so far');
+    } else {
+        alert('Please enter a valid user name between five and ten characters long')
+        console.log('Invald user-name detected');
+    }
+}
+function process_results() {
+    window.confirm('Do yoy trust the information you have fed into the fields?. If yes, click ok to process your results and if not, simply click cancel');
+    //Ok, this is where it gets messy, I have to get variables for each correct checkbox and apply conditions for grading the user.
+    var $grade = 0;
+    //getting variales for the correct boxes.
+    var $1C = document.getElementById('1C');
+    var $2C = document.getElementById('2C');
+    var $3C = document.getElementById('3C');
+    var $4C = document.getElementById('4C');
+    var $5D = document.getElementById('5D');
+    var $6F = document.getElementById('6F');
+    var $7B = document.getElementById('7B');
+    var $8D = document.getElementById('8D');
+    var $9C = document.getElementById('9C');
+    var $10D = document.getElementById('10C');
+    var $11C = document.getElementById('11C');
+    var $12C = document.getElementById('12C');
+
+    //Great, we have the variables ready, now vars apply conditions to give marks
+    //1
+    //we depend on the boolean of the answer matching the correct answer has been chosen to award and grade the user, where multiple answers are correct, the code changes accordingly
+    if ($1C.checked == true) {
+        var $grade1 = $grade + 5;
+        $1C.parentElement.parentElement.id = 'correct';
+        $1C.parentElement.parentElement.title = 'You passed this question';
+    } else {
+        var $grade1 = $grade + 0;
+        $1C.parentElement.parentElement.id = 'wrong';
+        $1C.parentElement.parentElement.title = 'You failed this question';
+    }
+    //2
+    if ($2C.checked == true) {
+        var $grade2 = $grade1 + 5;
+        $2C.parentElement.parentElement.id = 'correct';
+        $2C.parentElement.parentElement.title = 'You passed this question';
+    } else {
+        var $grade2 = $grade1 + 0;
+        $2C.parentElement.parentElement.id = 'wrong';
+        $2C.parentElement.parentElement.title = 'You failed this question';
+    }
+
+    //3
+    if ($3C.checked == true) {
+        var $grade3 = $grade2 + 5;
+        $3C.parentElement.parentElement.id = 'correct';
+        $3C.parentElement.parentElement.title = 'You passed this question';
+    } else {
+        var $grade3 = $grade2 + 0;
+        $3C.parentElement.parentElement.id = 'wrong';
+        $3C.parentElement.parentElement.title = 'You failed this question';
+    }
+
+    //4
+    if ($4C.checked == true) {
+        var $grade4 = $grade3 + 5;
+        $4C.parentElement.parentElement.id = 'correct';
+        $4C.parentElement.parentElement.title = 'You passed this question';
+    } else {
+        var $grade4 = $grade3 + 0;
+        $4C.parentElement.parentElement.id = 'wrong';
+        $4C.parentElement.parentElement.title = 'You failed this question';
+    }
+    //5 
+    if ($5D.checked == true) {
+        var $grade5 = $grade4 + 5;
+        $5D.parentElement.parentElement.id = 'correct';
+        $5D.parentElement.parentElement.title = 'You passed this question';
+    } else {
+        var $grade5 = $grade4 + 0;
+        $5D.parentElement.parentElement.id = 'wrong';
+        $5D.parentElement.parentElement.title = 'You failed this question';
+    }
+    //6
+    if ($6F.checked == true) {
+        var $grade6 = $grade5 + 5;
+        $6F.parentElement.parentElement.id = 'correct';
+        $6F.parentElement.parentElement.title = 'You passed this question';
+    } else {
+        var $grade6 = $grade5 + 0;
+        $6F.parentElement.parentElement.id = 'wrong';
+        $6F.parentElement.parentElement.title = 'You failed this question';
+    }
+    //7
+    if ($7B.checked == true) {
+        var $grade7 = $grade6 + 5;
+        $7B.parentElement.parentElement.id = 'correct';
+        $7B.parentElement.parentElement.title = 'You passed this question';
+    } else {
+        var $grade7 = $grade6 + 0;
+        $7B.parentElement.parentElement.id = 'wrong';
+        $7B.parentElement.parentElement.title = 'You failed this question';
+    }
+    //8
+    if ($8D.checked == true) {
+        var $grade8 = $grade7 + 5;
+        $8D.parentElement.parentElement.id = 'correct';
+        $8D.parentElement.parentElement.title = 'You passed this question';
+    } else {
+        var $grade8 = $grade7 + 0;
+        $8D.parentElement.parentElement.id = 'wrong';
+        $8D.parentElement.parentElement.title = 'You failed this question';
+    }
+    //9
+    if ($9C.checked == true) {
+        var $grade9 = $grade8 + 5;
+        $9C.parentElement.parentElement.id = 'correct';
+        $9C.parentElement.parentElement.title = 'You passed this question';
+    } else {
+        var $grade9 = $grade8 + 0;
+        $9C.parentElement.parentElement.id = 'wrong';
+        $9C.parentElement.parentElement.title = 'You failed this question';
+    }
+    //10
+    if ($10D.checked == true) {
+        var $grade10 = $grade9 + 5;
+        $10D.parentElement.parentElement.id = 'correct';
+        $10D.parentElement.parentElement.title = 'You passed this question';
+    } else {
+        var $grade10 = $grade9 + 0;
+        $10D.parentElement.parentElement.id = 'wrong';
+        $10D.parentElement.parentElement.title = 'You failed this question';
+    }
+    //11
+    if ($11C.checked == true) {
+        var $grade11 = $grade10 + 5;
+        $11C.parentElement.parentElement.id = 'correct';
+        $11C.parentElement.parentElement.title = 'You passed this question';
+    } else {
+        var $grade11 = $grade10 + 0;
+        $11C.parentElement.parentElement.id = 'wrong';
+        $11C.parentElement.parentElement.title = 'You failed this question';
+    }
+    //12
+    if ($12C.checked == true) {
+        var $grade12 = $grade11 + 5;
+        $12C.parentElement.parentElement.id = 'correct';
+        $12C.parentElement.parentElement.title = 'You passed this question';
+    } else {
+        var $grade12 = $grade11 + 0;
+        $12C.parentElement.parentElement.id = 'wrong';
+        $12C.parentElement.parentElement.title = 'You failed this question';
+    }
+    var $final = Math.ceil($grade12);
+    var edp_com = $final / 60;
+    var final = JSON.stringify(Math.ceil(edp_com * 100)/*
+    to get the final marks in percentage, we ceil it, divide by 60
+    and then multiply by one hundred to get the percentage equivalent
+    */
+    );
+    //UI build for displaying the test results
+    var $id = localStorage.getItem('userName');
+    var $blur = document.createElement('div');
+    $blur.id = "cover";
+    document.body.appendChild($blur);
+    var skinner = document.createElement('div');
+    skinner.id = "pop2";
+    $blur.appendChild(skinner);
+    var wrds = document.createElement('h1');
+    wrds.innerHTML = "Processing, please wait...";
+    var $res_cont = document.createElement('h2');
+    $res_cont.innerHTML = skinner.appendChild(wrds);
+    var holder = document.createElement('img');
+    holder.src = "../IMAGES/Loading.svg";
+    holder.id = "holder";
+    skinner.appendChild(holder);
+    var root, shoot, stem;
+    root = Math.random();
+    shoot = Math.ceil(root);
+    stem = shoot * 1000;
+    setTimeout(function() {
+        skinner.removeChild(holder);
+        wrds.innerHTML = "Dear " + $id + ", your score in this test is; ";
+        var $res_cont = document.createElement('h2');
+        $res_cont.innerHTML = final + "%";
+        skinner.appendChild($res_cont);
+        $res_cont.id = "res";
+        var com = document.createElement('p');
+        com.id = "com";
+        //determining the color and the comment related to the marks the user scores
+        if (final == 90,
+        final > 90) {
+            $res_cont.style.color = "green";
+            com.style.color = "green";
+            com.innerHTML = "Brilliant!";
+            com.style.marginLeft = "300px";
+        } else if (final == 80,
+        final > 90) {
+            $res_cont.style.color = "purple";
+            com.style.color = "purple";
+            com.innerHTML = "Quite good!";
+            com.style.marginLeft = "280px";
+        } else if (final == 60,
+        final > 60) {
+            $res_cont.style.color = "yellow";
+            com.style.color = "yellow";
+            com.innerHTML = "Not bad, more attention needed";
+            com.style.marginLeft = "185px";
+        } else {
+            $res_cont.style.color = "red";
+            com.style.color = "red";
+            com.innerHTML = "You are badly off!";
+            com.style.marginLeft = "215px";
+        }
+        skinner.appendChild(com);
+        //notify the user
+        Notification.requestPermission(function() {
+            if (Notification.permission === 'granted') {
+                new Notification("Congratulations" + {
+                    body: "Dear " + $id + "Your score in the File and folder management quiz was " + final + "%, " + com.innerHTML
+                });
+                // user approved.
+                // use of new Notification(...) syntax will now be successful
+            } else if (Notification.permission === 'denied') {// user denied.
+            } else {// Notification.permission === 'default'
+            // user didn’t make a decision.
+            // You can’t send notifications until they grant permission.
+            }
+        });
+        Notification.requestPermission().then(function(permission) {
+            if (!('permission'in Notification)) {
+                Notification.permission = permission;
+            }
+            //alert("Thank's alot you dummy, all our notifications are viruse, ha ha");
+        }, function(rejection) {
+            // handle rejection here.
+            alert("Ok, no problem, but just know you'll be missing out on some good shit.")
+        });
+        //retake the quiz handler
+        var $refresh = document.createElement('button');
+        $refresh.id = "go2";
+        $refresh.innerHTML = "Retake the Quiz";
+        $refresh.title = "Retake the Quiz"
+        $refresh.onclick = function() {
+            window.open('Filequiz.html');
+        }
+        skinner.appendChild($refresh);
+        var $review = document.createElement('button');
+        $review.id = "review";
+        $review.innerHTML = "Review";
+        $review.title = "Review the test and see where you went wrong"
+        $review.onclick = function() {
+            //removing the results sheet
+            let cover = document.getElementById('cover');
+            document.body.removeChild(cover);
+            //alert the user
+            alert('The questions that will be highlighted green are the ones you passed and the ones that will be  highlighted red are the ones that you failed')
+            //changing the contents of the show results button
+            var $prbtn = document.getElementById('process');
+            $prbtn.title = "Open a new tab so that you can retake the quiz"
+            $prbtn.innerHTML = "Retake the Quiz";
+            //retaking the quiz(reloads the page)
+            $prbtn.onclick = function() {
+                window.open('#')
+            }
+        }
+        skinner.appendChild($review)
+    }, stem)
+}
+
+        </script>
+        <div id="main">
+            <h1 id="hf">File and folder Management - Quiz</h1>
+            <div id="questions">
+                <h2 id="head">Questions</h2>
+                <div id="question1" class="qn">
+                    <h2> 1. What is a Folder?</h2>
+                    <form id="qn1" aria-required="true">
+                        <input type="checkbox" name="1" id="1A" value="1A"> <span>A location where files are stored on a
+                            computer. </span><br>
+                        <input type="checkbox" name="1" id="1B" value="1B"> <span>A file that has space for storing in
+                            other
+                            computer files. </span><br>
+                        <input type="checkbox" name="1" id="1C" value="1C"> <span>A virtual container on a computer
+                            where
+                            files are placed.</span><br>
+                        <input type="checkbox" name="1" id="1D" value="1D"> <span>None of the above </span>
+                    </form>
+                </div>
+                <div id="question2" class="qn">
+                    <h2>2. Folders can be created using;</h2>
+                    <form id="qn2" aria-required="true">
+                        <input type="checkbox" name="2" id="2A" value="2A"> <span>Microsoft Word</span><br>
+                        <input type="checkbox" name="2" id="2B" value="2B"> <span>Adobe PhotoShop</span><br>
+                        <input type="checkbox" name="2" id="2C" value="2C"> <span>File Explorer</span><br>
+                        <input type="checkbox" name="2" id="2D" value="2D"> <span>None of the above </span>
+                    </form>
+                </div>
+                <div id="question3" class="qn">
+                    <h2>3. Which of the following is the keyboard shortcut for cutting folders/files</h2>
+                    <form id="qn3" aria-required="true">
+                        <input type="checkbox" name="3" id="3A" value="3A"> <span>Ctrl + Shift + N</span><br>
+                        <input type="checkbox" name="3" id="3B" value="3B"> <span>Ctrl + C</span><br>
+                        <input type="checkbox" name="3" id="3C" value="3C"> <span>Ctrl + X</span><br>
+                        <input type="checkbox" name="3" id="3D" value="3D"> <span>None of the above.</span>
+                    </form>
+                </div>
+                <div id="question4" class="qn">
+                    <h2>4. All of the following can be done to a folder/file apart from;</h2>
+                    <form id="qn4" aria-required="true">
+                        <input type="checkbox" name="4" id="4A" value="4A"> <span>Deleting</span><br>
+                        <input type="checkbox" name="4" id="4B" value="4B"> <span>Copying</span><br>
+                        <input type="checkbox" name="4" id="4C" value="4C"> <span>Cropping</span><br>
+                        <input type="checkbox" name="4" id="4D" value="4D"> <span>Cutting</span><br>
+                        <input type="checkbox" name="4" id="4E" value="4E"> <span>None of the above</span>
+                    </form>
+                </div>
+                <div id="question5" class="qn">
+                    <h2> 5. The direction to the location to a folder or file is reffered to as a;</h2>
+                    <form id="qn5" aria-required="true">
+                        <input type="checkbox" name="5" id="5A" value="5A"> <span>A map</span><br>
+                        <input type="checkbox" name="5" id="5B" value="5B"> <span>A folder guide </span><br>
+                        <input type="checkbox" name="5" id="5C" value="5C"> <span>A directory</span><br>
+                        <input type="checkbox" name="5" id="5D" value="5D"> <span>A path</span><br>
+                        <input type="checkbox" name="5" id="5E" value="5E"> <span>A root</span><br>
+                        <input type="checkbox" name="5" id="5F" value="5F"> <span>None of the above </span>
+                    </form>
+                </div>
+                <div id="question6" class="qn">
+                    <h2> 6. Which of the following can't be stored in a folder?</h2>
+                    <form id="qn6" aria-required="true">
+                        <input type="checkbox" name="6" id="6A" value="6A"> <span>Images</span><br>
+                        <input type="checkbox" name="6" id="6B" value="6B"> <span>Videos </span><br>
+                        <input type="checkbox" name="6" id="6C" value="6C"> <span>Music</span><br>
+                        <input type="checkbox" name="6" id="6D" value="6D"> <span>Documents</span><br>
+                        <input type="checkbox" name="6" id="6E" value="6E"> <span>Appliacations</span><br>
+                        <input type="checkbox" name="6" id="6F" value="6F"> <span>None of the above </span>
+                    </form>
+                </div>
+                <div id="question7" class="qn">
+                    <h2>7. The disk spave occupied by a folder or file can be reduced by;</h2>
+                    <form id="qn7" aria-required="true">
+                        <input type="checkbox" name="7" id="7A" value="7A"> <span>Cutting</span><br>
+                        <input type="checkbox" name="7" id="7B" value="7B"> <span>Compressing</span><br>
+                        <input type="checkbox" name="7" id="7C" value="7C"> <span>Deleting</span><br>
+                        <input type="checkbox" name="7" id="7D" value="7D"> <span>Trimming</span><br>
+                        <input type="checkbox" name="7" id="7E" value="7E"> <span>None of the above</span>
+                    </form>
+                </div>
+                <div id="question8" class="qn">
+                    <h2>8. Items that have been deleted form a computer are moved to the;</h2>
+                    <form id="qn8" aria-required="true">
+                        <input type="checkbox" name="8" id="8A" value="8A"> <span>Desktop</span><br>
+                        <input type="checkbox" name="8" id="8B" value="8B"> <span>Google Drive</span><br>
+                        <input type="checkbox" name="8" id="8C" value="8C"> <span>Clipboard</span><br>
+                        <input type="checkbox" name="8" id="8D" value="8D"> <span>Recycle bin</span><br>
+                        <input type="checkbox" name="8" id="8E" value="8E"> <span>None of the above</span>
+                    </form>
+                </div>
+                <div id="question9" class="qn">
+                    <h2>9. Items that have been cut or copied are temporarily placed;</h2>
+                    <form id="qn9" aria-required="true">
+                        <input type="checkbox" name="9" id="9A" value="9A"> <span>In the recycle bin</span><br>
+                        <input type="checkbox" name="9" id="9B" value="9B"> <span>In the action centre </span><br>
+                        <input type="checkbox" name="9" id="9C" value="9C"> <span>On the system clipboard</span><br>
+                        <input type="checkbox" name="9" id="9D" value="9D"> <span>On a server</span><br>
+                        <input type="checkbox" name="9" id="9E" value="9E"> <span>On the taskbar</span><br>
+                        <input type="checkbox" name="9" id="9F" value="9F"> <span>None of the above </span>
+                    </form>
+                </div>
+                <div id="question10" class="qn">
+                    <h2>10. Which of the following is not a valid file/folder path?</h2>
+                    <form id="qn10" aria-required="true">
+                        <input type="checkbox" name="10" id="10A" value="10A"> <span>C:/ Users / Mike /
+                            Press.docx</span><br>
+                        <input type="checkbox" name="10" id="10B" value="10B"> <span>F:\ Users \ People \ Eric \ Time \
+                            Watch.exe</span><br>
+                        <input type="checkbox" name="10" id="10C" value="10C"> <span>D: Desktop - Work -
+                            Images</span><br>
+                        <input type="checkbox" name="10" id="10D" value="10D"> <span>file://C:/ Users / Isaac / Code /
+                            Js /
+                            Quiz.es6</span><br>
+                        <input type="checkbox" name="10" id="10E" value="10E"> <span>None of the above</span>
+                    </form>
+                </div>
+                <div id="question11" class="qn">
+                    <h2>11. A folder containing more folders or files is called a;</h2>
+                    <form id="qn11" aria-required="true">
+                        <input type="checkbox" name="11" id="11A" value="11A"> <span>Root folder</span><br>
+                        <input type="checkbox" name="11" id="11B" value="11B"> <span>Main Folder</span><br>
+                        <input type="checkbox" name="11" id="11C" value="11C">
+                        <spanl>Parent Folder</span><br>
+                            <input type="checkbox" name="11" id="11D" value="11D"> <span>Shoot folder</span><br>
+                            <input type="checkbox" name="11" id="11E" value="11E"> <span>None of the above</span>
+                    </form>
+                </div>
+                <div id="question12" class="qn">
+                    <h2>12. All of the following are uses of folders apart from;</h2>
+                    <form id="qn12" aria-required="true">
+                        <input type="checkbox" name="12" id="12A" value="12A"> <span>For storing files.</span><br>
+                        <input type="checkbox" name="12" id="12B" value="12B"> <span>For securing files.</span><br>
+                        <input type="checkbox" name="12" id="12C" value="12C">
+                        <spanl>For updating applications</span><br>
+                            <input type="checkbox" name="12" id="12D" value="12A"> <span>For easing file
+                                access</span><br>
+                            <input type="checkbox" name="12" id="12E" value="12E"> <span>None of the above</span>
+                    </form>
+                </div>
+            </div>
+            <div id="omaze">
+                <hr>
+                <button id="process" title="Process your results for this quiz">Process Results</button>
+            </div>
+        </div>
+        <div id="bottom">
+            <a href="mailto: ssemmandaisaac73@gmail.com">
+                <button class="button feed" title="Send Feedback">Send FeedBack
+                </button>
+            </a>
+            <a href="Topics.html">
+                <button class="other fresh button" title="Topics">Topics
+                </button>
+            </a>
+            <a href="Quizes.html">
+                <button class="thisPage fresh button" title="Quizes">Quizes
+                </button>
+            </a>
+            <a href="Help and Support.html">
+                <button class="other fresh button" title="Help and Support">Help and Support
+                </button>
+            </a>
+        </div>
+        <div id="copyright">
+            ©2024 SSEMMANDA ISAAC <br>All rights Reserved
+
+        </div>
+    </div>
+</body>
+
+</html>
