@@ -63,7 +63,7 @@ function createUser() {
             this.sex = sex;
             this.avatar = avatar;
             this.password = password;
-            this.username = firstname.toLowerCase() + lastname.toLowerCase() + '@ulearn.hub';
+            this.username = firstname.toLowerCase() + age +lastname.toLowerCase() + '@ulearn.hub';
         }
     }
     //build new user using the constructor
